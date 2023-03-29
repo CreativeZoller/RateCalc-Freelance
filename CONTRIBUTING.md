@@ -32,20 +32,20 @@ You will need to clone the main Freelance Ratecalculator code to your local mach
 
 Following these tips prior to raising a pull request will speed up the review cycle.
 
-- Add appropriate unit tests
-- Add integration tests, if applicable
-- Make sure the code you add follows the [guidelines](#guidelines)
-- Lines that are not part of your change should not be edited (e.g. don't format unchanged lines, don't reorder existing imports)
+-   Add appropriate unit tests
+-   Add integration tests, if applicable
+-   Make sure the code you add follows the [guidelines](#guidelines)
+-   Lines that are not part of your change should not be edited (e.g. don't format unchanged lines, don't reorder existing imports)
 
 ### Submitting your changes
 
 Once your changes and tests are ready to submit for review:
 
-- Test your changes
+-   Test your changes
 
     Run the test suite to make sure that nothing is broken.
 
-- Submit a pull request
+-   Submit a pull request
 
     Push your local changes to your remote branch in the repository
     and [submit a pull request](https://help.github.com/articles/using-pull-requests). In the pull request,

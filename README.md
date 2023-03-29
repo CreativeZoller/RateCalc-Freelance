@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Testing](#testing)
-- [License](#license)
-- [Credits](#credits)
+-   [Description](#description)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Testing](#testing)
+-   [License](#license)
+-   [Credits](#credits)
 
 https://careydevelopment.us/blog/how-to-create-a-wizardlike-workflow-with-the-angular-material-stepper-component
 
@@ -34,8 +34,8 @@ https://shields.io/
 
 #### Features
 
-- Angular 13 for GUI with Angular-Material 15
-- Export of the generated calculations
+-   Angular 13 for GUI with Angular-Material 15
+-   Export of the generated calculations
 
 ## Installation
 
