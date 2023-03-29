@@ -27,7 +27,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Live demo is available at: HREF
 
-![dependencies](https://img.shields.io/librariesio/github/CreativeZoller/ratecalc-freelance?logo=dependencies)
+https://shields.io/
+
 ![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
 
