@@ -1,0 +1,12 @@
+{
+    "printWidth": 140,
+    "tabWidth": 4,
+    "useTabs": false,
+    "arrowParens": "always",
+    "bracketSameLine": true,
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "semi": true,
+    "trailingComma": "es5"
+}
