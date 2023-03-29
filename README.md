@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Testing](#testing)
-- [License](#license)
-- [Credits](#credits)
+-   [Description](#description)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Testing](#testing)
+-   [License](#license)
+-   [Credits](#credits)
 
 https://careydevelopment.us/blog/how-to-create-a-wizardlike-workflow-with-the-angular-material-stepper-component
 
@@ -34,14 +34,24 @@ https://shields.io/
 
 #### Features
 
-- Angular 13 for GUI with Angular-Material 15
-- Export of the generated calculations
+-   Angular 13 for GUI with Angular-Material 15
+-   Export of the generated calculations
 
 ## Installation
 
 > Todo
 
 What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+
+For initializing Husky properly, run the following command: `npm run prepare`
+
+Since the project uses Husky to ensure some hooks are used properly, it is recommended to use the following commands after npm package installations are done:
+
+    ```
+    git config core.hooksPath .husky
+    find .git/hooks -type l -exec rm {} \;
+    find .husky -type f -exec ln -sf ../../{} .git/hooks/ \;
+    ```
 
 ## Usage
 
