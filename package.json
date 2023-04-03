@@ -17,9 +17,13 @@
   "private": true,
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [
-      "./setup-jest.ts"
-    ]
+    "setupFilesAfterEnv": ["./setup-jest.ts"],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "lines": 80
+      }
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md,html,css,scss}": "prettier --write"
