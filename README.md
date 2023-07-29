@@ -9,8 +9,6 @@
 -   [License](#license)
 -   [Credits](#credits)
 
-https://careydevelopment.us/blog/how-to-create-a-wizardlike-workflow-with-the-angular-material-stepper-component
-
 ## Description
 
 Get paid what you're worth with RateCalc-Freelance! Our powerful calculator takes the guesswork out of setting your hourly rate for every project. Say goodbye to undercharging or overbidding, and hello to fair compensation for your hard work. Join the freelancing revolution today!
@@ -23,7 +21,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Demo
 
-> Todo
+> Todo after functionality is done
 
 Live demo is available at: HREF
 
@@ -34,12 +32,14 @@ https://shields.io/
 
 #### Features
 
+> Todo after functionality is done
+
 -   Angular 13 for GUI with Angular-Material 15
 -   Export of the generated calculations
 
 ## Installation
 
-> Todo
+> Todo after functionality is done
 
 What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
 
@@ -55,7 +55,7 @@ Since the project uses Husky to ensure some hooks are used properly, it is recom
 
 ## Usage
 
-> Todo
+> Todo after functionality is done
 
 Provide instructions and examples for use. Include screenshots as needed.
 
@@ -77,11 +77,13 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Testing
+
+### Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
