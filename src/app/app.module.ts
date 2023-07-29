@@ -1,15 +1,28 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BreakpointObserver } from '@angular/cdk/layout';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularMaterialModule } from './angular-material.component';
+import { Routes } from '@angular/router';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { environment } from 'src/environments/environment';
 
+const appRoutes: Routes = [
+    {
+        path: 'home',
+        component: LandingPageComponent,
+        data: {
+            pageTitle: environment.appTitle,
+        },
+    },
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+    },
+];
 @NgModule({
     declarations: [AppComponent],
     imports: [
