@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
--   [Description](#description)
--   [Installation](#installation)
--   [Usage](#usage)
--   [Testing](#testing)
--   [License](#license)
--   [Credits](#credits)
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [License](#license)
+- [Credits](#credits)
 
 ## Description
 
@@ -34,8 +34,8 @@ https://shields.io/
 
 > Todo after functionality is done
 
--   Angular 13 for GUI with Angular-Material 15
--   Export of the generated calculations
+- Angular 13 for GUI with Angular-Material 15
+- Export of the generated calculations
 
 ## Installation
 
