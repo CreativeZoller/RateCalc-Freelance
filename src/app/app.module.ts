@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     },
 ];
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, LandingPageComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
