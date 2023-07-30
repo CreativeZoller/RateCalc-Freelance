@@ -5,24 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularMaterialModule } from './angular-material.component';
-import { Routes } from '@angular/router';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import { environment } from 'src/environments/environment';
-
-const appRoutes: Routes = [
-    {
-        path: 'home',
-        component: LandingPageComponent,
-        data: {
-            pageTitle: environment.appTitle,
-        },
-    },
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-    },
-];
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
     declarations: [AppComponent, LandingPageComponent],
     imports: [
@@ -31,6 +15,7 @@ const appRoutes: Routes = [
         AngularMaterialModule,
         FormsModule,
         ReactiveFormsModule,
+        AppRoutingModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: !isDevMode(),
             // Register the ServiceWorker as soon as the application is stable
