@@ -32,7 +32,6 @@ Following these tips prior to raising a pull request will speed up the review cy
 Once your changes and tests are ready to submit for review:
 
 -   Test your changes
-
     Run the test suite to make sure that nothing is broken.
 
 -   Submit a pull request
