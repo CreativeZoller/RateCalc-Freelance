@@ -7,8 +7,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularMaterialModule } from './angular-material.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CardComponent } from './components/shared/card/card.component';
 @NgModule({
-    declarations: [AppComponent, LandingPageComponent],
+    declarations: [AppComponent, LandingPageComponent, CardComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

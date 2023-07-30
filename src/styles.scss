@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap");
-@import "variables";
+@import "variables"; // use this on each file where colors needed
 
 html {
     height: 100%;
