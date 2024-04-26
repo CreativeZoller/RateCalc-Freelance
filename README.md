@@ -44,6 +44,11 @@ https://shields.io/
 What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
 
 For initializing Husky properly, run the following command: `npm run prepare`
+> TODO: stepify, Husky optional, commit only needed if want to contribute (more in contribution.md)
+
+== Warning: == for Windows users, please use `npm install husky` instead, as 'husky' is not recognized as an internal or external command on Windows.
+
+When it is done with either method, just run `npm install` and all the dependencies will be installed.
 
 Since the project uses Husky to ensure some hooks are used properly, it is recommended to use the following commands after npm package installations are done:
 
@@ -52,6 +57,8 @@ Since the project uses Husky to ensure some hooks are used properly, it is recom
     find .git/hooks -type l -exec rm {} \;
     find .husky -type f -exec ln -sf ../../{} .git/hooks/ \;
     ```
+
+== Note: == if you have the Husky installed, first try to commit `git commit -m "Keep calm and commit 🎉"`
 
 ## Usage
 
