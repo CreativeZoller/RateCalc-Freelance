@@ -17,7 +17,7 @@ Get paid what you're worth with RateCalc-Freelance! Our powerful calculator take
 
 ### Version
 
-0.0.1
+0.0.2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7.
 
@@ -39,16 +39,21 @@ https://shields.io/
 
 ## Installation
 
-> Todo
+### Prerequirements
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+It is very important to have node, npm and yarn installed.
 
-For initializing Husky properly, run the following command: `npm run prepare`
-> TODO: stepify, Husky optional, commit only needed if want to contribute (more in contribution.md)
+== nvm === - if you have nvm installed on your machine, please change for the proper version
 
-== Warning: == for Windows users, please use `npm install husky` instead, as 'husky' is not recognized as an internal or external command on Windows.
+-   Node v20.12.2
+-   NPM v10.6.0
+-   Yarn v1.22.19
 
-When it is done with either method, just run `npm install` and all the dependencies will be installed.
+If Husky is not installed in your system, please also run the folowing command: `npm run prepare` or `yarn run prepare`, it will initialize Husky properly.
+
+### Installation of the required packages
+
+When all the requirements are installed and verified, run `npm install` or `yarn` and all the dependencies will be installed.
 
 Since the project uses Husky to ensure some hooks are used properly, it is recommended to use the following commands after npm package installations are done:
 
