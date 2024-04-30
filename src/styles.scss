@@ -1,6 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "variables"; // use this on each file where colors needed
+
+html {
+    height: 100%;
+}
 
 body {
     margin: 0;
+    background-color: $gray;
+    font-family: $font-nunito;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: calc(100% - 40px);
+    padding: 20px;
 }

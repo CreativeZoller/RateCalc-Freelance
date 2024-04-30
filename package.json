@@ -1,6 +1,7 @@
 {
-  "name": "angular-app",
-  "version": "0.0.0",
+  "name": "RateCalc-Freelance",
+  "version": "0.0.1",
+  "releaseName": "Freelance Rate Calculator v1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
