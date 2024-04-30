@@ -14,7 +14,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn run serve
+          command: yarn run start
       - run:
           command: yarn add jest-junit --ignore-workspace-root-check
       - run:
