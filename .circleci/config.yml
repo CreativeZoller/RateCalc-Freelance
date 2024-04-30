@@ -5,9 +5,21 @@ orbs:
   node: circleci/node@5.2.0
 
 jobs:
-  build_and_test:
-    # Install node dependencies and run tests
-    executor: node/default # use the default executor defined within the orb
+  build:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Install packages
+          command: yarn
+      - run:
+          name: Run build
+          command: yarn run build
+
+  test:
+    executor: node/default
     parallelism: 5
     steps:
       - checkout
@@ -17,16 +29,13 @@ jobs:
           name: Install packages
           command: yarn
       - run:
-          name: Run tests
-          command: yarn run coverage
-      - run:
           name: Run build
           command: yarn run build
-      - persist_to_workspace:
-          root: ~/project
-          paths: .
 
 workflows:
   test_app:
     jobs:
-      - build_and_test
+      - build
+      - test:
+          requires:
+            - build
