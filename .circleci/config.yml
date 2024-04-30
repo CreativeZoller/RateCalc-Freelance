@@ -2,7 +2,7 @@
 # Stacks detected: deps:node:.,package_manager:yarn:,test:jest:
 version: 2.1
 orbs:
-  node: circleci/node@8
+  node: circleci/node@5.2.0
 jobs:
   build_and_test:
     # Install node dependencies and run tests
