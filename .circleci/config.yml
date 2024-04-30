@@ -31,6 +31,9 @@ jobs:
       - run:
           name: Run build
           command: yarn run build
+      - run:
+          name: Run test
+          command: yarn run coverage
 
 workflows:
   test_app:
