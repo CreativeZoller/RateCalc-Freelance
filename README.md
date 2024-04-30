@@ -9,7 +9,6 @@
 -   [License](#license)
 -   [Credits](#credits)
 
-https://careydevelopment.us/blog/how-to-create-a-wizardlike-workflow-with-the-angular-material-stepper-component
 
 ## Description
 
@@ -43,7 +42,7 @@ https://shields.io/
 
 It is very important to have node, npm and yarn installed.
 
-== nvm === - if you have nvm installed on your machine, please change for the proper version
+**nvm** - if you have nvm installed on your machine, please change for the proper version
 
 -   Node v20.12.2
 -   NPM v10.6.0
@@ -63,7 +62,7 @@ Since the project uses Husky to ensure some hooks are used properly, it is recom
     find .husky -type f -exec ln -sf ../../{} .git/hooks/ \;
     ```
 
-== Note: == if you have the Husky installed, first try to commit `git commit -m "Keep calm and commit 🎉"`
+**Note:** if you have the Husky installed, first try to commit `git commit -m "Keep calm and commit 🎉"`
 
 ## Usage
 
