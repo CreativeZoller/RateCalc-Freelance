@@ -1,5 +1,11 @@
 # RateCalc-Freelance
 
+![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
+![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/CreativeZoller/RateCalc-Freelance)
+![GitHub License](https://img.shields.io/github/license/CreativeZoller/RateCalc-Freelance)
+
 ## Table of Contents
 
 -   [Description](#description)
@@ -24,23 +30,18 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 > Todo after functionality is done
 
-> Remove package-lock.json by npm, add new by yarn
-
 Live demo is available at: HREF
 
 https://shields.io/
 
-![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
-![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
+> Todo Local Circle CI https://circleci.com/docs/how-to-use-the-circleci-local-cli/
+
+<!--
 ![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fgithub.com%2FCreativeZoller%2FRateCalc-Freelance)
 > Todo W3c validates the repo page itself, update after a demo page is deployed
-[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main)
-> Circle CI build badge https://circleci.com/docs/vs-code-extension-overview/ // https://circleci.com/docs/how-to-use-the-circleci-local-cli/
-> Travis build badge
-> Sonar coverage badge
-> Sonar tests badge
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/CreativeZoller/RateCalc-Freelance)
-![GitHub License](https://img.shields.io/github/license/CreativeZoller/RateCalc-Freelance)
+> Add Sonar coverage badge
+> Add Sonar tests badge
+-->
 
 
 #### Features
