@@ -30,6 +30,14 @@ https://shields.io/
 
 ![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
+![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fgithub.com%2FCreativeZoller%2FRateCalc-Freelance)
+> Circle CI build badge
+> Travis build badge
+> Sonar coverage badge
+> Sonar tests badge
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/CreativeZoller/RateCalc-Freelance)
+![GitHub License](https://img.shields.io/github/license/CreativeZoller/RateCalc-Freelance)
+
 
 #### Features
 
