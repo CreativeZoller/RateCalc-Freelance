@@ -1,12 +1,13 @@
 @import "./../../../../variables";
 
+// move to app.component
 .flex-container {
     display: flex;
     align-items: stretch;
     flex-direction: row;
     box-shadow: $box-shadow;
 }
-
+// move to app.component
 .border-radius {
     &--all {
         border-radius: 10px;
@@ -24,7 +25,7 @@
 .bg-gray {
     background-color: $gray-light;
 }
-
+// move to shared component after completition
 .section {
     height: auto;
     min-height: calc(80vh - 40px);
