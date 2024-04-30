@@ -34,6 +34,7 @@ https://shields.io/
 ![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
 ![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fgithub.com%2FCreativeZoller%2FRateCalc-Freelance)
 > Todo W3c validates the repo page itself, update after a demo page is deployed
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main)
 > Circle CI build badge https://circleci.com/docs/vs-code-extension-overview/ // https://circleci.com/docs/how-to-use-the-circleci-local-cli/
 > Travis build badge
 > Sonar coverage badge

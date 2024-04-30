@@ -1,6 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+TestBed.configureTestingModule({
+    declarations: [AppComponent],
+    errorOnUnknownElements: true, 
+    errorOnUnknownProperties: false
+  })
+
 describe('AppComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
