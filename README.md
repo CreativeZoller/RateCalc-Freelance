@@ -31,6 +31,7 @@ https://shields.io/
 ![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
 ![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fgithub.com%2FCreativeZoller%2FRateCalc-Freelance)
+> Todo W3c validates the repo page itself, update after a demo page is deployed
 > Circle CI build badge
 ![Travis CI build]([http://url/to/img.png](https://travis-ci.com/CreativeZoller/RateCalc-Freelance.svg?branch=main))
 > Sonar coverage badge
