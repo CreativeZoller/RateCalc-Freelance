@@ -8,6 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
+    "coverage": "jest — watch false",
     "e2e": "ng e2e",
     "lint": "prettier --check .",
     "format": "prettier --write .",
