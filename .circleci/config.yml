@@ -18,7 +18,7 @@ jobs:
           name: Run build
           command: yarn run build
 
-  test:
+  test_and_coverage:
     executor: node/default
     parallelism: 5
     steps:
@@ -29,9 +29,6 @@ jobs:
           name: Install packages
           command: yarn
       - run:
-          name: Run build
-          command: yarn run build
-      - run:
           name: Run test
           command: yarn run coverage
 
@@ -39,6 +36,6 @@ workflows:
   test_app:
     jobs:
       - build
-      - test:
+      - test_and_coverage:
           requires:
             - build
