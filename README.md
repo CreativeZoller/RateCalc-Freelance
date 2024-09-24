@@ -1,6 +1,7 @@
 # RateCalc-Freelance
 
 ![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-raw/CreativeZoller/ratecalc-freelance)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/circleci/Tuud6AkcbYJgkL83Xx2Q2Q/5EZYa3QsJCF4NkHLj1Pw5c/tree/main)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/CreativeZoller/RateCalc-Freelance)
