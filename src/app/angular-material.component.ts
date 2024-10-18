@@ -16,9 +16,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatListModule } from '@angular/material/list';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
     imports: [
@@ -41,6 +45,10 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTooltipModule,
         MatToolbarModule,
         MatStepperModule,
+        MatRadioModule,
+        MatListModule,
+        ScrollingModule,
+        MatTabsModule,
     ],
     exports: [
         MatSnackBarModule,
@@ -48,6 +56,9 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatSortModule,
         MatPaginatorModule,
         MatDatepickerModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatRadioModule,
         MatIconModule,
         MatInputModule,
         MatProgressSpinnerModule,
@@ -57,6 +68,9 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTooltipModule,
         MatToolbarModule,
         MatStepperModule,
+        MatListModule,
+        ScrollingModule,
+        MatTabsModule,
     ],
     providers: [MatDatepickerModule],
 })
