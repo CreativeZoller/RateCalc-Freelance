@@ -529,6 +529,15 @@
                             </div>
                         </div>
                     </form>
+
+                    <button mat-stroked-button color="primary" class="card-stepper__button" matStepperPrevious>
+                        <mat-icon class="btn-icon" iconPositionStart>chevron_left</mat-icon>
+                        <span class="btn-text">Back</span>
+                    </button>
+                    <button mat-stroked-button color="primary" class="card-stepper__button" matStepperNext>
+                        <span class="btn-text">Next</span>
+                        <mat-icon class="btn-icon" iconPositionEnd>chevron_right</mat-icon>
+                    </button>
                 </ng-template>
             </mat-step>
             <mat-step [stepControl]="secondFormGroup" state="travel">
