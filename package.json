@@ -1,6 +1,6 @@
 {
   "name": "RateCalc-Freelance",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "releaseName": "Freelance Rate Calculator v1",
   "scripts": {
     "ng": "ng",
