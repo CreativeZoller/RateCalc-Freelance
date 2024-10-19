@@ -9,23 +9,60 @@
 
 ## Table of Contents
 
--   [Description](#description)
--   [Installation](#installation)
--   [Usage](#usage)
--   [Testing](#testing)
--   [License](#license)
--   [Credits](#credits)
-
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [License](#license)
+- [Credits](#credits)
 
 ## Description
 
 Get paid what you're worth with RateCalc-Freelance! Our powerful calculator takes the guesswork out of setting your hourly rate for every project. Say goodbye to undercharging or overbidding, and hello to fair compensation for your hard work. Join the freelancing revolution today!
 
+### Commands cheat-sheet for newcomers
+
+For those who used npm till now, I would suggest to change to Yarn immediately. Here is a cheat-sheet for commands in both package manager:
+
+| Command                  | NPM                                  | Yarn                           |
+| ------------------------ | ------------------------------------ | ------------------------------ |
+| Install dependencies     | `npm install`                        | `yarn`                         |
+| Install package          | `npm install [package]`              | `yarn add [package]`           |
+| Install Dev package      | `npm install --save-dev [package]`   | `yarn add --dev [package]`     |
+| Uninstall package        | `npm uninstall [package]`            | `yarn remove [package]`        |
+| Uninstall Dev package    | `npm uninstall --save-dev [package]` | `yarn remove [package]`        |
+| Update                   | `npm update`                         | `yarn upgrade`                 |
+| Update package           | `npm update [package]`               | `yarn upgrade [package]`       |
+| Global install package   | `npm install --global [package]`     | `yarn global add [package]`    |
+| Global uninstall package | `npm uninstall --global [package]`   | `yarn global remove [package]` |
+
+| NPM                      | Yarn                      |
+| ------------------------ | ------------------------- |
+| `npm init`               | `yarn init`               |
+| `npm run`                | `yarn run`                |
+| `npm login (and logout)` | `yarn login (and logout)` |
+| `npm link`               | `yarn link`               |
+| `npm publish`            | `yarn publish`            |
+| `npm cache clean`        | `yarn cache clean`        |
+
 ### Version
+
+0.0.3
+
+Package versions were updated to 18.2.8. All other dependencies were updated accordingly.
+This project features the following stack:
+
+- [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8
+- [Angular Material](https://material.angular.io/) version 18.2.9
+- [Rxjs](https://rxjs.dev/) version 7.5.0
+- Active Eslint, Prettier, Husky, stylelint, Karma, etc.
 
 0.0.2
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7.
+This project was generated with the following stack:
+
+- [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7
+- Active Eslint, prettier, husky, stylelint, Karma, etc.
 
 ### Demo
 
@@ -44,7 +81,6 @@ https://shields.io/
 > Add Sonar tests badge
 -->
 
-
 #### Features
 
 > Todo after functionality is done
@@ -60,9 +96,9 @@ It is very important to have node, npm and yarn installed.
 
 **nvm** - if you have nvm installed on your machine, please change for the proper version
 
--   Node v20.12.2
--   NPM v10.6.0
--   Yarn v1.22.19
+- Node v23.0.0
+- NPM v10.9.0
+- Yarn v1.22.17
 
 If Husky is not installed in your system, please also run the folowing command: `npm run prepare` or `yarn run prepare`, it will initialize Husky properly.
 

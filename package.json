@@ -2,6 +2,7 @@
   "name": "ratecalc-freelance",
   "version": "0.0.3",
   "releaseName": "Freelance Rate Calculator v1",
+  "license":"GNU-3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
