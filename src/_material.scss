@@ -4,11 +4,11 @@
 @import "custom-palette";
 @include mat.core();
 
-$custom-primary: mat.define-palette($frcPalette);
-$custom-accent: mat.define-palette(mat.$blue-grey-palette);
-$custom-warn: mat.define-palette(mat.$red-palette);
+$custom-primary: mat.m2-define-palette($frcPalette);
+$custom-accent: mat.m2-define-palette(mat.$m2-blue-grey-palette);
+$custom-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$custom-theme: mat.define-light-theme(
+$custom-theme: mat.m2-define-light-theme(
     (
         color: (
             primary: $custom-primary,
