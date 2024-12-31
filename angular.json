@@ -1,99 +1,65 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false
+    "analytics": "1e1de97b-a744-405a-8b5a-0397bb3d01ce"
   },
-  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-app": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
+    "demo": {
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "outputPath": {
-              "base": "dist/angular-app"
-            },
-            "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
-            "serviceWorker": "ngsw-config.json",
-            "browser": "src/main.ts"
-          },
+          "builder": "@angular-devkit/build-angular:application",
           "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "8mb",
-                  "maximumError": "9mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2mb",
-                  "maximumError": "4mb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
             "development": {
-              "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "optimization": false,
+              "sourceMap": true
+            },
+            "production": {
+              "aot": true,
+              "extractLicenses": true,
+              "namedChunks": false,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false
             }
           },
-          "defaultConfiguration": "production"
+          "options": {
+            "assets": [ 
+              { 
+                "glob": "*/", 
+                "input": "public" 
+              }
+            ],
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "outputPath": "dist/demo",
+            "polyfills": ["zone.js"],
+            "scripts": [],
+            "styles": ["src/global_styles.css"],
+            "tsConfig": "tsconfig.app.json"
+          }
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "angular-app:build:production"
-            },
             "development": {
-              "buildTarget": "angular-app:build:development"
+              "buildTarget": "demo:build:development"
+            },
+            "production": {
+              "buildTarget": "demo:build:production"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "angular-app:build"
-          }
         }
-      }
+      },
+      "prefix": "app",
+      "projectType": "application",
+      "root": "",
+      "schematics": {},
+      "sourceRoot": "src"
     }
-  }
+  },
+  "version": 1
 }

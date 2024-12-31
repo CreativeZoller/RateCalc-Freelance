@@ -47,6 +47,10 @@ For those who used npm till now, I would suggest to change to Yarn immediately. 
 
 ### Version
 
+0.0.4
+
+The application went through a whole refactoring, includig package changes, and upgrading to the newest Angular version at the end of 2024 and begnning of 2025.
+
 0.0.3
 
 Package versions were updated to 18.2.8. All other dependencies were updated accordingly.
@@ -76,7 +80,6 @@ https://shields.io/
 
 <!--
 ![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fgithub.com%2FCreativeZoller%2FRateCalc-Freelance)
-> Todo W3c validates the repo page itself, update after a demo page is deployed
 > Add Sonar coverage badge
 > Add Sonar tests badge
 -->

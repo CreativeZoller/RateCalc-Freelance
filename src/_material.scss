@@ -1,9 +1,0 @@
-@charset "UTF-8";
-
-@use "@angular/material" as mat;
-@use "./m3-theme";
-@include mat.core();
-
-:root {
-    @include mat.all-component-themes(m3-theme.$light-theme);
-}

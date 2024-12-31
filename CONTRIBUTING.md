@@ -1,10 +1,10 @@
 # Contributing to this repository
 
-Freelance Ratecalculator is a private project with proprietary information and we enjoy to your contributions! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports or writing code which can be incorporated into Freelance Ratecalculator itself.
+Freelance Ratecalculator (Money Mingle) is a private project with proprietary information and we enjoy to your contributions! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports or writing code which can be incorporated into Freelance Ratecalculator (Money Mingle) itself.
 
 ## Bug reports
 
-If you think you have found a bug in Freelance Ratecalculator, first make sure that you are testing against the latest version of Freelance Ratecalculator found in `main` branch - your issue may already have been fixed. If not, search our [issues list](https://github.com/CreativeZoller/ratecalc-freelance/issues) on GitHub in case a similar issue has already been opened.
+If you think you have found a bug in Freelance Ratecalculator (Money Mingle), first make sure that you are testing against the latest version of Freelance Ratecalculator (Money Mingle) found in `main` branch - your issue may already have been fixed. If not, search our [issues list](https://github.com/CreativeZoller/ratecalc-freelance/issues) on GitHub in case a similar issue has already been opened.
 
 It is very helpful if you can prepare a reproduction of the bug. In other words, provide a small test case which we can run to confirm your bug. It makes it easier to find the problem and to fix it. If the bug is not visible to the user, test cases should be provided as one or two methods. If it is visible to the user, test cases should be provided as screenshots of browser with a detailed instructions to find the bug.
 
@@ -12,11 +12,11 @@ Provide as much information as you can. The easier it is for us to recreate your
 
 ## Contributing code and documentation changes
 
-If you would like to contribute to Freelance Ratecalculator, please be aware that there are particular complexities that you should know about before starting the implementation. There are often a number of ways to fix a problem, and it is important to find the right approach before spending time on a PR that cannot be merged.
+If you would like to contribute to Freelance Ratecalculator (Money Mingle), please be aware that there are particular complexities that you should know about before starting the implementation. There are often a number of ways to fix a problem, and it is important to find the right approach before spending time on a PR that cannot be merged.
 
 ### Clone the repository
 
-You will need to clone the main Freelance Ratecalculator code to your local machine.
+You will need to clone the main Freelance Ratecalculator (Money Mingle) code to your local machine.
 
 ### Tips for code changes
 
@@ -73,7 +73,7 @@ Freelance Ratecalculator code has multiple automated formatters. Please read you
 
 > Todo after functionality is done
 
-Freelance Ratecalculator code has specified formatting and style guidelines. You can read specified language's guidelines [here](docs/STYLEGUIDE.md).
+Freelance Ratecalculator (Money Mingle) code has specified formatting and style guidelines. You can read specified language's guidelines [here](docs/STYLEGUIDE.md).
 
 ## Docstrings & Javadocs
 
