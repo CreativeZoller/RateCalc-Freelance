@@ -1,13 +1,18 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { provideRouter, withDebugTracing } from '@angular/router';
+import { routes } from './app/app.routes';
+import { LoadingComponent } from '@components/loading/loading.component';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [RouterOutlet, LoadingComponent],
+    template: ` <router-outlet></router-outlet> `,
+})
+export class App {}
 
-if (environment.production) {
-    enableProdMode();
-}
-
-platformBrowserDynamic()
-    .bootstrapModule(AppModule)
-    .catch((err) => console.error(err));
+bootstrapApplication(App, {
+    providers: [provideRouter(routes, withDebugTracing())],
+});
