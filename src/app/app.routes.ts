@@ -1,20 +1,7 @@
 import { Routes } from '@angular/router';
-import { environment } from '../environments/environment';
+import { environment } from '@env/environment';
 
 export const routes: Routes = [
-    // todo: https://angular.dev/guide/incremental-hydration
-    // todo: remove all test page components
-
-    // 04 working days
-    //      days on
-    //      days off
-    //      minimum rates
-    // 05 savings - kek
-    //      savings
-    //      new rates
-    // 06 summary - szurke / kek
-    // 42 404 - szurke
-
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
     {
         path: 'landing',
@@ -31,7 +18,6 @@ export const routes: Routes = [
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/living/living.component').then((m) => m.LivingComponent),
-        children: [],
     },
     {
         path: 'travel',
@@ -40,7 +26,6 @@ export const routes: Routes = [
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/travel/travel.component').then((m) => m.TravelComponent),
-        children: [],
     },
     {
         path: 'business-1',
@@ -49,7 +34,6 @@ export const routes: Routes = [
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/business-1/business-1.component').then((m) => m.Business1Component),
-        children: [],
     },
     {
         path: 'business-2',
@@ -58,7 +42,6 @@ export const routes: Routes = [
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/business-2/business-2.component').then((m) => m.Business2Component),
-        children: [],
     },
     {
         path: 'business-3',
@@ -67,72 +50,43 @@ export const routes: Routes = [
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/business-3/business-3.component').then((m) => m.Business3Component),
-        children: [],
     },
     {
-        path: 'break-even-1',
+        path: 'break-even',
         title: 'Annual Expenses',
         data: {
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/sum-1/sum-1.component').then((m) => m.Sum1Component),
-        children: [],
     },
+
     {
-        path: 'fees',
-        title: 'Sales Fees and Taxes',
+        path: 'holidays',
+        title: 'Working Time',
         data: {
             apptitle: environment.appTitle,
         },
-        loadComponent: () => import('./pages/fees/fees.component').then((m) => m.FeesComponent),
-        children: [],
+        loadComponent: () => import('./pages/holidays/holidays.component').then((m) => m.WorkOffComponent),
     },
     {
-        path: 'taxes',
-        title: 'Sales Fees and Taxes',
+        path: 'workdays',
+        title: 'Working Time',
         data: {
             apptitle: environment.appTitle,
         },
-        loadComponent: () => import('./pages/taxes/taxes.component').then((m) => m.TaxesComponent),
-        children: [],
+        loadComponent: () => import('./pages/workdays/workdays.component').then((m) => m.WorkOnComponent),
     },
     {
-        path: 'break-even-2',
-        title: 'Sales Fees and Taxes',
+        path: 'minimum-rates',
+        title: 'Working time',
         data: {
             apptitle: environment.appTitle,
         },
         loadComponent: () => import('./pages/sum-2/sum-2.component').then((m) => m.Sum2Component),
-        children: [],
-    },
-    //
-    {
-        path: 'scrolls',
-        title: 'Scrolls',
-        data: {
-            apptitle: environment.appTitle,
-        },
-        loadComponent: () => import('./pages/scroll-test/scroll-test.component').then((m) => m.ScrollTestComponent),
-    },
-    {
-        path: 'tabs',
-        title: 'Tabs',
-        data: {
-            apptitle: environment.appTitle,
-        },
-        loadComponent: () => import('./pages/tab-test/tab-test.component').then((m) => m.TabTestComponent),
-    },
-    {
-        path: 'table',
-        title: 'Table',
-        data: {
-            apptitle: environment.appTitle,
-        },
-        loadComponent: () => import('./pages/table-test/table-test.component').then((m) => m.TableTestComponent),
     },
     {
         path: '**',
-        title: 'Error',
+        title: 'Page not found',
         data: {
             apptitle: environment.appTitle,
         },

@@ -47,6 +47,10 @@ For those who used npm till now, I would suggest to change to Yarn immediately. 
 
 ### Version
 
+0.0.5
+
+The application now has properly separated components, services and types for better scalability. also the logic is seprated from view. Packages got updated. New functionalities added: export as pdf and export as xls.
+
 0.0.4
 
 The application went through a whole refactoring, includig package changes, and upgrading to the newest Angular version at the end of 2024 and begnning of 2025.

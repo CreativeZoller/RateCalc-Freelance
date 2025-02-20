@@ -23,7 +23,7 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConfigService } from '@services/config.service';
+import { ConfigurationService } from '@services/index';
 import { BackgroundColor, styleConfigs } from '@layout/page-layout.types';
 
 @Component({
@@ -37,7 +37,7 @@ export class LogoComponent implements OnInit {
     @Input() bgColor: BackgroundColor = 'blue';
     appName: string = '';
 
-    constructor(private configService: ConfigService) {}
+    constructor(private configService: ConfigurationService) {}
 
     ngOnInit() {
         this.appName = this.configService.appTitle;

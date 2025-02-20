@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -27,7 +26,7 @@
       "@components/*" : ["app/shared/ui/*"],
       "@services/*" : ["app/shared/services/*"],
       "@pipes/*" : ["app/shared/pipes/*"],
-      "@env/*" : ["environments/*"],
+      "@env/*" : ["environments/*"]
     }
   },
   "angularCompilerOptions": {

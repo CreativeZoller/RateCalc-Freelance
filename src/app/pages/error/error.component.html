@@ -1,0 +1,34 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'404'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 size-2xl">
+                            <path d="M12 8L12 12" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12 16.01L12.01 15.9989" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M9 3H4V6" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M4 11V13" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20 11V13" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M15 3H20V6" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M9 21H4V18" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M15 21H20V18" class="stroke-1 stroke-gray-base" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="goBack()"> Back to landing </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

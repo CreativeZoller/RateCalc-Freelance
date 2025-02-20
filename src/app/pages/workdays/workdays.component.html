@@ -1,0 +1,72 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'03'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Working time</h2>
+
+                        <div class="my-4" id="formgroup">
+                            <form class="space-y-4" [formGroup]="workOnForm">
+                                <fieldset class="p-4 border border-gray-300 border-solid rounded-lg">
+                                    <legend class="text-sm">Days</legend>
+                                    <div class="relative flex gap-4">
+                                        <app-input
+                                            type="number"
+                                            id="workon-availabledays-value"
+                                            size="full"
+                                            label="Days available"
+                                            [disabled]="true"
+                                            hint="365 days per year minus your total days off (from previous step)"
+                                            [control]="getControl('availabledays.value')">
+                                        </app-input>
+                                    </div>
+                                    <div class="relative flex gap-4">
+                                        <app-input
+                                            type="number"
+                                            id="workon-workdays-value"
+                                            size="full"
+                                            label="Working days per week"
+                                            hint="How many days per week do you work?"
+                                            [control]="getControl('workdays.value')">
+                                        </app-input>
+                                    </div>
+
+                                    <p class="max-w-md my-6 text-gray-600">
+                                        Total number of your planned working days: <span class="font-bold text-blue-base">{{ totalWorkDays }}</span>
+                                    </p>
+                                </fieldset>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="number"
+                                        id="workon-workhours-value"
+                                        size="full"
+                                        label="Working hours per day"
+                                        hint="How many hours per day do you expect to be paid for? eg. Searching the internet for jobs is not paid work, sorry."
+                                        [control]="getControl('workhours.value')">
+                                    </app-input>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+
+                <app-button variant="primary" fontWeight="semibold" (onClick)="navigate('next')"> Next </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

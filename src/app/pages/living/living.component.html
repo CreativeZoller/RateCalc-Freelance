@@ -1,0 +1,103 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'02'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Living expenses</h2>
+
+                        <div class="my-4" id="formgroup">
+                            <form class="space-y-4" [formGroup]="livingForm">
+                                <div class="relative flex gap-4" formGroupName="rent">
+                                    <app-input
+                                        type="text"
+                                        id="rent-value"
+                                        size="two-third"
+                                        label="Rent or mortgage"
+                                        hint="How much for the roof over your head?"
+                                        [control]="getControl('rent.value')">
+                                    </app-input>
+                                    <app-select id="rent-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('rent.rate')">
+                                    </app-select>
+                                </div>
+
+                                <div class="relative flex gap-4" formGroupName="utilities">
+                                    <app-input
+                                        type="text"
+                                        id="utilities-value"
+                                        size="two-third"
+                                        label="Utilities  ( Gas / Electric )"
+                                        hint="Lights? Electricity? Heat? Stove?"
+                                        [control]="getControl('utilities.value')">
+                                    </app-input>
+                                    <app-select id="utilities-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('utilities.rate')">
+                                    </app-select>
+                                </div>
+
+                                <div class="relative flex gap-4" formGroupName="communication">
+                                    <app-input
+                                        type="text"
+                                        id="communication-value"
+                                        size="two-third"
+                                        label="Phone & Internet"
+                                        hint="Cell phone bill? Cable? Internet? Landline?"
+                                        [control]="getControl('communication.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="communication-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('communication.rate')">
+                                    </app-select>
+                                </div>
+
+                                <div class="relative flex gap-4" formGroupName="meals">
+                                    <app-input
+                                        type="text"
+                                        id="meals-value"
+                                        size="two-third"
+                                        label="Meals & Entertainment"
+                                        hint="Groceries? Takeout? Dinner with friends?"
+                                        [control]="getControl('meals.value')">
+                                    </app-input>
+                                    <app-select id="meals-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('meals.rate')">
+                                    </app-select>
+                                </div>
+
+                                <div class="relative flex gap-4" formGroupName="insurance">
+                                    <app-input
+                                        type="text"
+                                        id="insurance-value"
+                                        size="two-third"
+                                        label="Insurance  ( Health / Other )"
+                                        hint="Health / Dental / Vision / Life insurance? Car insurance?"
+                                        [control]="getControl('insurance.value')">
+                                    </app-input>
+                                    <app-select id="insurance-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('insurance.rate')">
+                                    </app-select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+
+                <app-button variant="primary" fontWeight="semibold" (onClick)="navigate('next')"> Next </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

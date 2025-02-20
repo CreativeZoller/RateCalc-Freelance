@@ -1,17 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormSignalService } from './form-signal.service';
-
-type RateType = 'daily' | 'monthly' | 'yearly';
-
-/**
- * Interface for calculation results
- */
-interface CalculationResults {
-    dailyTotal: number;
-    monthlyTotal: number;
-    yearlyTotal: number;
-    total: number;
-}
+import { ExpenseRateType, CalculationFormData, CalculationFormControlData, CalculationServiceResults } from 'app/types';
 
 /**
  * Service for performing calculations on form data
@@ -26,23 +15,35 @@ interface CalculationResults {
     providedIn: 'root',
 })
 export class CalculationService {
-    constructor(private formSignalService: FormSignalService) {}
+    constructor(private readonly formSignalService: FormSignalService) {}
+
+    /**
+     * Type guard to check if an object is a valid CalculationFormControlData
+     */
+    private isValidControl(control: unknown): control is CalculationFormControlData {
+        return typeof control === 'object' && control !== null && 'value' in control;
+    }
+
+    /**
+     * Type guard to check if an object is a valid CalculationFormData
+     */
+    private isValidCalculationFormData(CalculationFormData: unknown): CalculationFormData is CalculationFormData {
+        return typeof CalculationFormData === 'object' && CalculationFormData !== null && 'controls' in CalculationFormData;
+    }
 
     /**
      * Calculates sum of values for a specific form and rate
-     * @param {string} formId - Form identifier
-     * @param {RateType} rate - Rate type to sum (daily, monthly, yearly)
-     * @returns {number} Sum of values for the specified rate
      */
-    calculateRateSum(formId: string, rate: RateType): number {
-        const formData = this.formSignalService.getFormData(formId);
-        if (!formData) return 0;
+    calculateRateSum(formId: string, rate: ExpenseRateType): number {
+        const CalculationFormData = this.formSignalService.getFormData(formId);
 
-        const rateValue = rate === 'daily' ? '365' : rate === 'monthly' ? '12' : '1';
+        if (!this.isValidCalculationFormData(CalculationFormData)) {
+            return 0;
+        }
 
-        return Object.entries(formData.controls).reduce((sum, [_, group]) => {
-            if (group.rate === rateValue) {
-                const value = parseFloat(group.value) || 0;
+        return Object.values(CalculationFormData.controls).reduce((sum, control) => {
+            if (this.isValidControl(control) && control.rate === rate) {
+                const value = parseFloat(control.value as string) || 0;
                 return sum + value;
             }
             return sum;
@@ -51,23 +52,32 @@ export class CalculationService {
 
     /**
      * Calculates totals based on rates for a specific form
-     * @param {string} formId - Form identifier to calculate totals for
-     * @returns {CalculationResults} Object containing calculated totals
      */
-    calculateTotals(formId: string): CalculationResults {
-        const formData = this.formSignalService.getFormData(formId);
-        if (!formData) {
+    calculateTotals(formId: string): CalculationServiceResults {
+        const CalculationFormData = this.formSignalService.getFormData(formId);
+
+        if (!this.isValidCalculationFormData(CalculationFormData)) {
             return { dailyTotal: 0, monthlyTotal: 0, yearlyTotal: 0, total: 0 };
         }
 
-        const dailyTotal = this.calculateRateSum(formId, 'daily');
-        const monthlyTotal = this.calculateRateSum(formId, 'monthly');
-        const yearlyTotal = this.calculateRateSum(formId, 'yearly');
-        const total = this.convertToYearlyTotal({ dailyTotal, monthlyTotal, yearlyTotal });
+        let dailyTotal = this.calculateRateSum(formId, 'daily');
+        let monthlyTotal = this.calculateRateSum(formId, 'monthly');
+        let yearlyTotal = this.calculateRateSum(formId, 'yearly');
+        let total = this.convertToYearlyTotal({ dailyTotal, monthlyTotal, yearlyTotal });
+
+        // Check for numeric values without a defined rate type
+        Object.values(CalculationFormData.controls).forEach((control) => {
+            if (this.isValidControl(control) && !control.rate) {
+                const numericValue = parseFloat(control.value as string);
+                if (!isNaN(numericValue)) {
+                    total += numericValue;
+                }
+            }
+        });
 
         // Store calculation results in form signal
-        this.formSignalService.updateFormData(formId, {
-            ...formData.controls,
+        this.formSignalService.createOrUpdateFormData(formId, {
+            ...CalculationFormData.controls,
             calculations: { dailyTotal, monthlyTotal, yearlyTotal, total },
         });
 
@@ -76,10 +86,10 @@ export class CalculationService {
 
     /**
      * Calculates grand totals across all forms
-     * @returns {CalculationResults} Object containing calculated totals
      */
-    calculateGrandTotals(): CalculationResults {
+    calculateGrandTotals(): CalculationServiceResults {
         const allForms = this.formSignalService.getAllFormData();
+
         return allForms.reduce(
             (totals, form) => {
                 const formTotals = this.calculateTotals(form.formId);
@@ -96,10 +106,30 @@ export class CalculationService {
 
     /**
      * Converts all totals to yearly values for comparison
-     * @param {CalculationResults} totals - The totals to convert
-     * @returns {number} The combined yearly total
      */
-    convertToYearlyTotal(totals: Partial<CalculationResults>): number {
+    convertToYearlyTotal(totals: Partial<CalculationServiceResults>): number {
         return (totals.dailyTotal || 0) * 365 + (totals.monthlyTotal || 0) * 12 + (totals.yearlyTotal || 0);
+    }
+
+    /**
+     * Calculates totals based on numeric input values from a form
+     */
+    calculateHolidayTotals(formId: string): void {
+        const CalculationFormData = this.formSignalService.getFormData(formId);
+
+        if (!this.isValidCalculationFormData(CalculationFormData)) {
+            return;
+        }
+
+        const total = Object.values(CalculationFormData.controls)
+            .filter((control) => this.isValidControl(control))
+            .map((control) => Number(control.value))
+            .reduce((sum, val) => sum + val, 0);
+
+        // Store calculation results in form signal
+        this.formSignalService.createOrUpdateFormData(formId, {
+            ...CalculationFormData.controls,
+            totalAvailableDaysOff: total,
+        });
     }
 }

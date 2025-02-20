@@ -2,49 +2,41 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { PageLayoutComponent } from '@layout/page-layout.component';
 import { BackgroundColor } from '@layout/page-layout.types';
 import { ButtonComponent, StatusBarComponent } from '@components/index';
-import { InputComponent, SelectComponent } from '@components/form-elements/index';
-import { SelectData } from '@components/form-elements/select/select.types';
+import { InputComponent } from '@components/form-elements/index';
 import { ConfigurationService, FormSignalService, ExpenseCalculationService, FormCleanupService } from '@services/index';
-import { ExpenseFormGroup, ExpenseParagraph, RATE_OPTIONS } from 'app/types';
+import { ExpenseFormGroup, ExpenseParagraph } from 'app/types';
 
 @Component({
-    selector: 'app-business-2',
-    templateUrl: 'business-2.component.html',
+    selector: 'app-work-on',
+    templateUrl: 'workdays.component.html',
     standalone: true,
-    imports: [CommonModule, PageLayoutComponent, ButtonComponent, StatusBarComponent, InputComponent, SelectComponent, ReactiveFormsModule],
+    imports: [CommonModule, PageLayoutComponent, ButtonComponent, StatusBarComponent, InputComponent, ReactiveFormsModule],
 })
-export class Business2Component implements OnInit, OnDestroy {
+export class WorkOnComponent implements OnInit, OnDestroy {
     title: string = '';
     subTitle: string = '';
     appName: string = '';
-    bgColor: BackgroundColor = 'gray';
-    progressValue = '4';
-    numberOfSteps = 6;
-    paragraphs: ExpenseParagraph[] = [{ content: 'These can be considered optional if you are just getting started.', modifier: 'normal' }];
+    bgColor: BackgroundColor = 'blue';
+    progressValue = '2';
+    numberOfSteps = 3;
+    paragraphs: ExpenseParagraph[] = [{ content: 'The total number of days per year that you will be working on your business.', modifier: 'normal' }];
 
+    totalWorkDays = 0;
+    totalAvailable = 0;
     private formSubscription?: Subscription;
-    rateOptions: SelectData[] = [
-        { label: 'Daily', value: RATE_OPTIONS.DAILY },
-        { label: 'Monthly', value: RATE_OPTIONS.MONTHLY },
-        { label: 'Yearly', value: RATE_OPTIONS.YEARLY },
-    ];
-    business2Form = new FormGroup({
-        ads: new FormGroup({
+    workOnForm = new FormGroup({
+        availabledays: new FormGroup({
             value: new FormControl(''),
-            rate: new FormControl(''),
         }),
-        legal: new FormGroup({
+        workdays: new FormGroup({
             value: new FormControl(''),
-            rate: new FormControl(''),
         }),
-        self: new FormGroup({
+        workhours: new FormGroup({
             value: new FormControl(''),
-            rate: new FormControl(''),
         }),
     });
 
@@ -61,6 +53,7 @@ export class Business2Component implements OnInit, OnDestroy {
         this.initializePageSettings();
         this.loadSavedFormData();
         this.setupFormSubscription();
+        this.loadTotalAvailable();
     }
 
     ngOnDestroy() {
@@ -68,22 +61,22 @@ export class Business2Component implements OnInit, OnDestroy {
     }
 
     private initializePageSettings(): void {
-        this.title = 'Annual Expenses';
-        this.subTitle = 'Business 2';
+        this.title = 'Working Time';
+        this.subTitle = 'Working On';
         this.appName = this.configService.appTitle;
 
         this.updateProgress();
         this.route.queryParams.subscribe((params) => {
-            const step = parseInt(params['step'] || '4');
+            const step = parseInt(params['step'] || '1');
             this.progressValue = this.calculateProgress(step);
         });
     }
 
     private loadSavedFormData(): void {
-        const savedData = this.formSignalService.getFormData('business2');
+        const savedData = this.formSignalService.getFormData('workOn');
         if (savedData?.controls) {
             Object.keys(savedData.controls).forEach((key) => {
-                const group = this.business2Form.get(key) as FormGroup;
+                const group = this.workOnForm.get(key) as FormGroup;
                 if (group) {
                     const savedGroup = savedData.controls[key] as any;
                     if (savedGroup) {
@@ -114,19 +107,36 @@ export class Business2Component implements OnInit, OnDestroy {
     }
 
     private setupFormSubscription(): void {
-        this.formSubscription = this.business2Form.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((values) => {
+        this.formSubscription = this.workOnForm.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((values) => {
             const cleanedValues = this.formCleanupService.cleanExpenseFormValues(values as ExpenseFormGroup);
-            this.formSignalService.createOrUpdateFormData('business2', cleanedValues);
-            this.calculationService.calculateTotals('business2');
+            this.formSignalService.createOrUpdateFormData('workOn', cleanedValues);
+            this.calculationService.calculateTotals('workOn');
+            this.loadTotalAvailable();
+            this.calculateWorkdays();
         });
     }
 
+    private loadTotalAvailable(): void {
+        const holidays = this.formSignalService.getFormData('workOff');
+        const calculations = holidays?.controls?.['calculations'];
+        const totalDaysOff: number = calculations && typeof calculations === 'object' && 'total' in calculations ? (calculations.total as number) : 0;
+        this.totalAvailable = 365 - totalDaysOff;
+        this.workOnForm.get('availabledays.value')?.setValue(this.totalAvailable.toString(), { emitEvent: false });
+    }
+
     getControl(path: string): FormControl {
-        return this.business2Form.get(path) as FormControl;
+        return this.workOnForm.get(path) as FormControl;
+    }
+
+    // Method to calculate total workdays
+    public calculateWorkdays(): void {
+        const workdaysPerWeek = Number(this.getControl('workdays.value').value || 0);
+        const availableDays = Number(this.getControl('availabledays.value').value || 0);
+        this.totalWorkDays = workdaysPerWeek > 0 && availableDays > 0 ? Math.floor((availableDays / 7) * workdaysPerWeek) : 0;
     }
 
     private updateProgress(): void {
-        const step = parseInt(this.route.snapshot.queryParams['step'] || '4');
+        const step = parseInt(this.route.snapshot.queryParams['step'] || '2');
         this.progressValue = this.calculateProgress(step);
     }
 
@@ -140,9 +150,9 @@ export class Business2Component implements OnInit, OnDestroy {
 
     navigate(direction: 'back' | 'next') {
         if (direction === 'back') {
-            this.router.navigate(['/business-1'], { queryParams: { step: '3' } });
+            this.router.navigate(['/holidays'], { queryParams: { step: '1' } });
         } else if (direction === 'next') {
-            this.router.navigate(['/business-3'], { queryParams: { step: '5' } });
+            this.router.navigate(['/minimum-rates'], { queryParams: { step: '3' } });
         }
     }
 }

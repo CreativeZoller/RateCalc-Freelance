@@ -1,0 +1,109 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'02'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Essential business expenses</h2>
+
+                        <div class="my-4" id="formgroup">
+                            <form class="space-y-4" [formGroup]="business1Form">
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-supplies-value"
+                                        size="two-third"
+                                        label="Office Supplies"
+                                        hint="Pens, paper, ink? Work stations or small office furniture?"
+                                        [control]="getControl('supplies.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="business-supplies-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('supplies.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-hands-value"
+                                        size="two-third"
+                                        label="Hardware & Software"
+                                        hint="New computer? Monitors? 1-time software purchases?"
+                                        [control]="getControl('hands.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="business-hands-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('hands.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-assets-value"
+                                        size="two-third"
+                                        label="Trade Assets"
+                                        hint="Fonts? Icons? Books? Plug-ins?"
+                                        [control]="getControl('assets.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="business-assets-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('assets.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-subs-value"
+                                        size="two-third"
+                                        label="Subscriptions"
+                                        hint="Adobe Creative Cloud? Sketch? InVision? Pro Tools?"
+                                        [control]="getControl('subs.value')">
+                                    </app-input>
+                                    <app-select id="living-subs-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('subs.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-web-value"
+                                        size="two-third"
+                                        label="Website"
+                                        hint="Hosting? Servers? Cloud? Domain registrations?"
+                                        [control]="getControl('web.value')">
+                                    </app-input>
+                                    <app-select id="business-web-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('web.rate')">
+                                    </app-select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+
+                <app-button variant="primary" fontWeight="semibold" (onClick)="navigate('next')"> Next </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

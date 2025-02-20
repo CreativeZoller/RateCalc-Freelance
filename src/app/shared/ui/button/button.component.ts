@@ -62,7 +62,7 @@ export class ButtonComponent {
     };
 
     getButtonClasses(): string {
-        const baseClasses = 'py-2 px-4 rounded-lg transition duration-300';
+        const baseClasses = 'py-2 px-4 rounded-lg transition duration-250 transition ease-in-out';
         const fontWeightClass = this.fontWeightClasses[this.fontWeight];
         const disabledClasses = this.disabled ? 'opacity-50 cursor-not-allowed' : '';
 

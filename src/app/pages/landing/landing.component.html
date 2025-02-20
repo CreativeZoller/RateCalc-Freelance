@@ -1,0 +1,21 @@
+<app-page-layout [title]="title" [appName]="appName" [stepNumber]="'01'" [subTitle]="subTitle" [bgColor]="bgColor">
+    <div rightContent class="w-full h-full">
+        <hgroup class="mb-8 text-left">
+            <h2 class="mt-8 mb-8 text-2xl font-semibold text-gray-800">{{ appSlogan }}</h2>
+
+            <p class="max-w-md mt-12 mb-12 text-gray-600">
+                In just a few minutes, our intuitive calculator helps you determine the ideal hourly, daily, and weekly rates for your services. Simply input
+                your expenses, desired income goals, and your ideal lifestyle – whether it's financial freedom, early retirement, or simply a comfortable living
+                – and our powerful tool does the rest.
+            </p>
+
+            <app-tooltip [tooltipContent]="'Start calculate the hourly rate on which you can feel satisfied with doing what you love for living.'">
+                <p class="max-w-md font-semibold text-slate-900">Take 10 minutes and figure out your hourly / daily / weekly rate.</p>
+            </app-tooltip>
+        </hgroup>
+
+        <div class="flex flex-col items-left">
+            <app-button variant="primary" fontWeight="semibold" (onClick)="navigateToCalculations()"> Get started </app-button>
+        </div>
+    </div>
+</app-page-layout>

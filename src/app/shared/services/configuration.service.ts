@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-
-export interface AppConfig {
-    appName: string;
-    appTitle: string;
-    appSlogan: string;
-    appVersion: string;
-}
+import { AppConfig } from 'app/types';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ConfigService {
-    private config: AppConfig;
+export class ConfigurationService {
+    private readonly config: AppConfig;
 
     constructor() {
         this.config = {

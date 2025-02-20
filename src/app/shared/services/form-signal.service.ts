@@ -1,12 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-
-/**
- * Interface representing form data structure
- */
-interface FormData {
-    formId: string;
-    controls: { [key: string]: any };
-}
+import { ServiceFormData } from 'app/types';
 
 /**
  * Service for managing form data using Angular signals
@@ -22,26 +15,25 @@ interface FormData {
 })
 export class FormSignalService {
     /** Signal storing all form data */
-    private formSignal = signal<FormData[]>([]);
+    private readonly formSignal = signal<ServiceFormData[]>([]);
 
     /**
-     * Creates a new form data entry
+     * Creates a new form entry if it does not exist, otherwise updates it.
      * @param {string} formId - Unique identifier for the form
-     * @param {Object} controls - Form control values
-     * @returns {void}
+     * @param {Record<string, unknown>} controls - Form control values
      */
-    createFormData(formId: string, controls: { [key: string]: any }): void {
-        this.formSignal.update((forms) => [...forms, { formId, controls }]);
-    }
-
-    /**
-     * Updates existing form data
-     * @param {string} formId - Identifier of form to update
-     * @param {Object} controls - New form control values
-     * @returns {void}
-     */
-    updateFormData(formId: string, controls: { [key: string]: any }): void {
-        this.formSignal.update((forms) => forms.map((form) => (form.formId === formId ? { ...form, controls } : form)));
+    createOrUpdateFormData(formId: string, controls: Record<string, unknown>): void {
+        this.formSignal.update((forms) => {
+            const existingIndex = forms.findIndex((form) => form.formId === formId);
+            if (existingIndex !== -1) {
+                // Update existing form
+                const updatedForms = structuredClone(forms);
+                updatedForms[existingIndex].controls = controls;
+                return updatedForms;
+            }
+            // Create new form entry
+            return [...forms, { formId, controls }];
+        });
     }
 
     /**
@@ -49,14 +41,13 @@ export class FormSignalService {
      * @param {string} formId - Form identifier to retrieve
      * @returns {FormData | undefined} The form data or undefined if not found
      */
-    getFormData(formId: string): FormData | undefined {
+    getFormData(formId: string): ServiceFormData | undefined {
         return this.formSignal().find((form) => form.formId === formId);
     }
 
     /**
-     * Deletes form data by ID
+     * Deletes a specific form by ID
      * @param {string} formId - Identifier of form to delete
-     * @returns {void}
      */
     deleteFormData(formId: string): void {
         this.formSignal.update((forms) => forms.filter((form) => form.formId !== formId));
@@ -64,17 +55,23 @@ export class FormSignalService {
 
     /**
      * Clears all stored form data
-     * @returns {void}
      */
     clearAllData(): void {
         this.formSignal.set([]);
     }
 
     /**
-     * Gets all stored form data
-     * @returns {FormData[]} Array of all form data
+     * Resets all stored forms to empty controls while preserving form IDs.
      */
-    getAllFormData(): FormData[] {
+    resetAllForms(): void {
+        this.formSignal.update((forms) => forms.map((form) => ({ formId: form.formId, controls: {} })));
+    }
+
+    /**
+     * Gets all stored form data
+     * @returns {ServiceFormData[]} Array of all form data
+     */
+    getAllFormData(): ServiceFormData[] {
         return this.formSignal();
     }
 }

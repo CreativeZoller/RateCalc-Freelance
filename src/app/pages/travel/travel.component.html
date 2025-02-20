@@ -1,0 +1,68 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'02'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Travel expenses</h2>
+
+                        <div class="my-4" id="formgroup">
+                            <form class="space-y-4" [formGroup]="travelForm">
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="travel-transport-value"
+                                        size="two-third"
+                                        label="Transportation"
+                                        hint="Car payments? Train, bus, or subway fare? Uber or Taxi rides?"
+                                        [control]="getControl('transport.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="travel-transport-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('transport.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="travel-travel-value"
+                                        size="two-third"
+                                        label="Travel  ( Hotel & Airfare )"
+                                        hint="Plane tickets? Hotel or AirBnB? Train or bus trips? Event travel?"
+                                        [control]="getControl('travel.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="travel-travel-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('travel.rate')">
+                                    </app-select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+
+                <app-button variant="primary" fontWeight="semibold" (onClick)="navigate('next')"> Next </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

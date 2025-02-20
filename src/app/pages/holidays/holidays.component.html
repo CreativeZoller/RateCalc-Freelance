@@ -1,0 +1,64 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'03'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Holiday time</h2>
+
+                        <div class="my-4" id="formgroup">
+                            <form class="space-y-4" [formGroup]="workOffForm">
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="number"
+                                        id="workoff-vacations-value"
+                                        size="full"
+                                        label="Planned vacations"
+                                        hint="How many vacation days do you want per year?"
+                                        [control]="getControl('vacations.value')">
+                                    </app-input>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="number"
+                                        id="workoff-holidays-value"
+                                        size="full"
+                                        label="Granted holidays"
+                                        hint="For reference, there are 16-20 average Holidays in the E.U. in 2025"
+                                        [control]="getControl('holidays.value')">
+                                    </app-input>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="number"
+                                        id="workoff-sickleaves-value"
+                                        size="full"
+                                        label="Sickleave"
+                                        hint="Paid sick leave average is around 14 days per year in the E.U. in 2025"
+                                        [control]="getControl('sickleaves.value')">
+                                    </app-input>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+
+                <app-button variant="primary" fontWeight="semibold" (onClick)="navigate('next')"> Next </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

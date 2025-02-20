@@ -1,0 +1,80 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'02'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Additional business expenses</h2>
+
+                        <div class="my-4" id="formgroup">
+                            <form class="space-y-4" [formGroup]="business3Form">
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-office-value"
+                                        size="two-third"
+                                        label="Office Space"
+                                        hint="Co-working space? Dedicated office?"
+                                        [control]="getControl('office.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="business-office-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('office.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="office-help-value"
+                                        size="two-third"
+                                        label="Contractors & Hired Help"
+                                        hint="Need to hire some help on projects? Any additional help?"
+                                        [control]="getControl('help.value')">
+                                    </app-input>
+                                    <app-select id="living-help-rate" size="one-third" label="Rate" [data]="rateOptions" [control]="getControl('help.rate')">
+                                    </app-select>
+                                </div>
+                                <div class="relative flex gap-4">
+                                    <app-input
+                                        type="text"
+                                        id="business-other-value"
+                                        size="two-third"
+                                        label="Other"
+                                        hint="Business insurance? Business entity fees? Other expenses?"
+                                        [control]="getControl('other.value')">
+                                    </app-input>
+                                    <app-select
+                                        id="business-other-rate"
+                                        size="one-third"
+                                        label="Rate"
+                                        [data]="rateOptions"
+                                        [control]="getControl('other.rate')">
+                                    </app-select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+
+                <app-button variant="primary" fontWeight="semibold" (onClick)="navigate('next')"> Next </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

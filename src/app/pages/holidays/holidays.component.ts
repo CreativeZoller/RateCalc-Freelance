@@ -2,49 +2,39 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { PageLayoutComponent } from '@layout/page-layout.component';
 import { BackgroundColor } from '@layout/page-layout.types';
 import { ButtonComponent, StatusBarComponent } from '@components/index';
-import { InputComponent, SelectComponent } from '@components/form-elements/index';
-import { SelectData } from '@components/form-elements/select/select.types';
-import { ConfigurationService, FormSignalService, ExpenseCalculationService, FormCleanupService } from '@services/index';
-import { ExpenseFormGroup, ExpenseParagraph, RATE_OPTIONS } from 'app/types';
+import { InputComponent } from '@components/form-elements/index';
+import { FormSignalService, CalculationService, ConfigurationService, FormCleanupService } from '@services/index';
+import { ExpenseFormGroup, ExpenseParagraph } from 'app/types';
 
 @Component({
-    selector: 'app-business-2',
-    templateUrl: 'business-2.component.html',
+    selector: 'app-work-off',
+    templateUrl: 'holidays.component.html',
     standalone: true,
-    imports: [CommonModule, PageLayoutComponent, ButtonComponent, StatusBarComponent, InputComponent, SelectComponent, ReactiveFormsModule],
+    imports: [CommonModule, PageLayoutComponent, ButtonComponent, StatusBarComponent, InputComponent, ReactiveFormsModule],
 })
-export class Business2Component implements OnInit, OnDestroy {
+export class WorkOffComponent implements OnInit, OnDestroy {
     title: string = '';
     subTitle: string = '';
     appName: string = '';
-    bgColor: BackgroundColor = 'gray';
-    progressValue = '4';
-    numberOfSteps = 6;
-    paragraphs: ExpenseParagraph[] = [{ content: 'These can be considered optional if you are just getting started.', modifier: 'normal' }];
+    bgColor: BackgroundColor = 'blue';
+    progressValue = '1';
+    numberOfSteps = 3;
+    paragraphs: ExpenseParagraph[] = [{ content: 'The total number of days per year that you will not be working.', modifier: 'normal' }];
 
     private formSubscription?: Subscription;
-    rateOptions: SelectData[] = [
-        { label: 'Daily', value: RATE_OPTIONS.DAILY },
-        { label: 'Monthly', value: RATE_OPTIONS.MONTHLY },
-        { label: 'Yearly', value: RATE_OPTIONS.YEARLY },
-    ];
-    business2Form = new FormGroup({
-        ads: new FormGroup({
+    workOffForm = new FormGroup({
+        vacations: new FormGroup({
             value: new FormControl(''),
-            rate: new FormControl(''),
         }),
-        legal: new FormGroup({
+        holidays: new FormGroup({
             value: new FormControl(''),
-            rate: new FormControl(''),
         }),
-        self: new FormGroup({
+        sickleaves: new FormGroup({
             value: new FormControl(''),
-            rate: new FormControl(''),
         }),
     });
 
@@ -53,7 +43,7 @@ export class Business2Component implements OnInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly configService: ConfigurationService,
         private readonly formSignalService: FormSignalService,
-        private readonly calculationService: ExpenseCalculationService,
+        private readonly calculationService: CalculationService,
         private readonly formCleanupService: FormCleanupService
     ) {}
 
@@ -68,22 +58,22 @@ export class Business2Component implements OnInit, OnDestroy {
     }
 
     private initializePageSettings(): void {
-        this.title = 'Annual Expenses';
-        this.subTitle = 'Business 2';
+        this.title = 'Working Time';
+        this.subTitle = 'Working Off';
         this.appName = this.configService.appTitle;
 
         this.updateProgress();
         this.route.queryParams.subscribe((params) => {
-            const step = parseInt(params['step'] || '4');
+            const step = parseInt(params['step'] || '1');
             this.progressValue = this.calculateProgress(step);
         });
     }
 
     private loadSavedFormData(): void {
-        const savedData = this.formSignalService.getFormData('business2');
+        const savedData = this.formSignalService.getFormData('workOff');
         if (savedData?.controls) {
             Object.keys(savedData.controls).forEach((key) => {
-                const group = this.business2Form.get(key) as FormGroup;
+                const group = this.workOffForm.get(key) as FormGroup;
                 if (group) {
                     const savedGroup = savedData.controls[key] as any;
                     if (savedGroup) {
@@ -114,19 +104,19 @@ export class Business2Component implements OnInit, OnDestroy {
     }
 
     private setupFormSubscription(): void {
-        this.formSubscription = this.business2Form.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((values) => {
+        this.formSubscription = this.workOffForm.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((values) => {
             const cleanedValues = this.formCleanupService.cleanExpenseFormValues(values as ExpenseFormGroup);
-            this.formSignalService.createOrUpdateFormData('business2', cleanedValues);
-            this.calculationService.calculateTotals('business2');
+            this.formSignalService.createOrUpdateFormData('workOff', cleanedValues);
+            this.calculationService.calculateTotals('workOff');
         });
     }
 
     getControl(path: string): FormControl {
-        return this.business2Form.get(path) as FormControl;
+        return this.workOffForm.get(path) as FormControl;
     }
 
-    private updateProgress(): void {
-        const step = parseInt(this.route.snapshot.queryParams['step'] || '4');
+    private updateProgress() {
+        const step = parseInt(this.route.snapshot.queryParams['step'] || '1');
         this.progressValue = this.calculateProgress(step);
     }
 
@@ -140,9 +130,9 @@ export class Business2Component implements OnInit, OnDestroy {
 
     navigate(direction: 'back' | 'next') {
         if (direction === 'back') {
-            this.router.navigate(['/business-1'], { queryParams: { step: '3' } });
+            this.router.navigate(['/break-even'], { queryParams: { step: '6' } });
         } else if (direction === 'next') {
-            this.router.navigate(['/business-3'], { queryParams: { step: '5' } });
+            this.router.navigate(['/workdays'], { queryParams: { step: '2' } });
         }
     }
 }

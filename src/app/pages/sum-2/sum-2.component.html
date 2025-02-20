@@ -1,0 +1,215 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'04'"
+    [showSimplifiedState]="true"
+    [showTabState]="true"
+    [bgColor]="bgColor">
+    <div tabContent>
+        <app-tabs [orientation]="'horizontal'" [tabTriggers]="['Total expenses', 'Total time']" [bgColor]="bgColor">
+            <app-tab-panel>
+                <div scrollContent>
+                    <app-list-group [type]="'normal'" [items]="expensesListItems" [bgColor]="bgColor" class="mt-6"> </app-list-group>
+                </div>
+            </app-tab-panel>
+            <app-tab-panel>
+                <div scrollContent>
+                    <app-list-group [type]="'normal'" [items]="timeListItems" [bgColor]="bgColor" class="mt-6"> </app-list-group>
+                </div>
+            </app-tab-panel>
+        </app-tabs>
+    </div>
+
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <app-status-bar length="100%" [value]="progressValue" [numOfSteps]="numberOfSteps" [showProgress]="true"> </app-status-bar>
+
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800">How much do you need to charge to break even?</h2>
+
+                        <div class="my-4">
+                            <div class="max-w-xs mb-8 overflow-hidden rounded shadow-lg bg-gray-light">
+                                <div class="px-6 py-4 pb-2">
+                                    <p class="pt-2 text-base text-gray-700">Your new hourly rate should be at least:</p>
+                                </div>
+                                <div class="px-6 pt-0 pb-4 text-center">
+                                    <span class="bg-yellow-base text-text-default text-2xl font-medium me-2 px-2.5 py-0.5 rounded-full">
+                                        {{ calculatedRates?.minHourlyRate ?? 0 | currencyConverter: "eur" : false }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="max-w-xs mb-8 overflow-hidden rounded shadow-lg bg-gray-light">
+                                <div class="px-6 py-4 pb-2">
+                                    <p class="pt-2 text-base text-gray-700">Your minimum rate per working day:</p>
+                                </div>
+                                <div class="px-6 pt-0 pb-4 text-center">
+                                    <span class="bg-blue-base text-text-default text-2xl font-medium me-2 px-2.5 py-0.5 rounded-full">
+                                        {{ calculatedRates?.minDailyRate ?? 0 | currencyConverter: "eur" : false }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="max-w-xs mb-8 overflow-hidden rounded shadow-lg bg-gray-light">
+                                <div class="px-6 py-4 pb-2">
+                                    <p class="pt-2 text-base text-gray-700">Your minimum rate per working month:</p>
+                                </div>
+                                <div class="px-6 pt-0 pb-4 text-center">
+                                    <span class="bg-green-base text-text-default text-2xl font-medium me-2 px-2.5 py-0.5 rounded-full">
+                                        {{ calculatedRates?.minMonthlyRate ?? 0 | currencyConverter: "eur" : false }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-4 text-center">
+                            <app-button variant="primary" fontWeight="semibold" outlined="yes" (onClick)="showDetailsDialog = true">
+                                Show and export the detailed summary
+                            </app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between flex-none mt-6">
+                <app-button variant="secondary" fontWeight="semibold" outlined="yes" (onClick)="navigate('back')"> Back </app-button>
+                <app-button variant="success" fontWeight="semibold" (onClick)="navigate('next')"> Start new </app-button>
+            </div>
+        </div>
+    </div>
+</app-page-layout>
+
+<app-dialog [(isOpen)]="showDetailsDialog" [size]="'large'" [header]="{ title: 'Detailed Summary' }">
+    <div dialogContent class="space-y-8">
+        <!-- Expense Categories -->
+        <div *ngFor="let category of expenseSummary?.categories" class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">{{ category.name }}</h3>
+                <span class="text-lg font-bold text-blue-base">
+                    {{ category.total | currencyConverter: "eur" : false }}
+                </span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Item</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Original Value</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Rate</th>
+                            <th class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Yearly Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr *ngFor="let item of category.items">
+                            <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ item.name }}</td>
+                            <td class="px-6 py-4 text-sm text-right text-gray-900 whitespace-nowrap">
+                                {{ item.originalValue ?? 0 | currencyConverter: "eur" : false }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-right text-gray-500 whitespace-nowrap">
+                                {{ formatRate(item.rate) }}
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-right text-gray-900 whitespace-nowrap">
+                                {{ item.amount | currencyConverter: "eur" : false }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Time Metrics -->
+        <div class="pt-6 border-t">
+            <h3 class="mb-4 text-lg font-semibold text-gray-900">Working Time Summary</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="p-4 rounded-lg bg-gray-50">
+                    <p class="text-sm text-gray-500">Working Days</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ getTimeMetric("workingDays") }}</p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-50">
+                    <p class="text-sm text-gray-500">Days Off</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ getTimeMetric("daysOff") }}</p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-50">
+                    <p class="text-sm text-gray-500">Hours per Day</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ getTimeMetric("hoursPerDay") }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculated Rates -->
+        <div class="pt-6 border-t">
+            <h3 class="mb-4 text-lg font-semibold text-gray-900">Minimum Rates</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="p-4 rounded-lg bg-gray-50">
+                    <p class="text-sm text-gray-500">Hourly Rate</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {{ calculatedRates?.minHourlyRate ?? 0 | currencyConverter: "eur" : false }}
+                    </p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-50">
+                    <p class="text-sm text-gray-500">Daily Rate</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {{ calculatedRates?.minDailyRate ?? 0 | currencyConverter: "eur" : false }}
+                    </p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-50">
+                    <p class="text-sm text-gray-500">Monthly Rate</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {{ calculatedRates?.minMonthlyRate ?? 0 | currencyConverter: "eur" : false }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Buttons -->
+        <div class="flex items-center justify-between pt-6 border-t">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gray-900">Total Annual Expenses</h3>
+                <span class="pl-4 text-xl font-bold text-blue-base">
+                    {{ expenseSummary?.totalExpenses ?? 0 | currencyConverter: "eur" : false }}
+                </span>
+            </div>
+            <div class="flex gap-2">
+                <button
+                    (click)="exportToPDF()"
+                    class="inline-flex items-center px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-red-base hover:bg-red-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 2v5a2 2 0 002 2h5" />
+                    </svg>
+                    PDF
+                </button>
+                <button
+                    (click)="exportToExcel()"
+                    class="inline-flex items-center px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-green-base hover:bg-green-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Excel
+                </button>
+                <button
+                    (click)="exportToCSV()"
+                    class="inline-flex items-center px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-blue-base hover:bg-blue-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                    </svg>
+                    CSV
+                </button>
+            </div>
+        </div>
+    </div>
+</app-dialog>
