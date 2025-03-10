@@ -49,7 +49,7 @@ For those who used npm till now, I would suggest to change to Yarn immediately. 
 
 0.0.5
 
-The application now has properly separated components, services and types for better scalability. also the logic is seprated from view. Packages got updated. New functionalities added: export as pdf and export as xls.
+The application now has properly separated components, services and types for better scalability. Also the logic is seprated from view. Packages got updated. New functionalities added: export as pdf and export as xls. Mobile first responsive design added.
 
 0.0.4
 
