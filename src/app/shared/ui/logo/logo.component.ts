@@ -48,6 +48,6 @@ export class LogoComponent implements OnInit {
     }
 
     getLogoClasses(): string {
-        return `text-2xl font-semibold mb-6 ${this.styleConfig.text}`;
+        return `text-2xl font-semibold mb-6 md:mt-4 ${this.styleConfig.text}`;
     }
 }

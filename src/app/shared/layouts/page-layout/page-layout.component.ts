@@ -38,7 +38,11 @@ export class PageLayoutComponent implements PageLayoutProps {
     sidebarOpen = false;
 
     getLeftSectionClasses(): string {
-        return `w-full lg:w-1/2 p-8 ${this.styleConfig.background}`;
+        return `lg:w-1/2 p-4 ${this.styleConfig.background}`;
+    }
+
+    getSidebarBtnClasses(): string {
+        return `text-${this.bgColor === 'gray' ? 'blue' : 'yellow'}-base`;
     }
 
     toggleSidebar() {

@@ -1,23 +1,49 @@
-<main class="flex flex-col min-h-screen p-0 m-0 bg-gradient-to-t from-gray-700 via-slate-700 to-black md:items-center md:justify-center">
-    <div class="w-full md:w-[90%] mx-auto p-0 md:px-4 md:py-6 md:h-[80vh] flex flex-col md:items-center md:justify-center h-screen">
+<main class="flex flex-col min-h-screen p-0 m-0 bg-gradient-to-t from-gray-700 via-slate-700 to-black lg:items-center lg:justify-center">
+    <div class="w-full lg:w-[90%] mx-auto p-0 lg:px-4 lg:py-4 lg:h-[80vh] flex flex-col lg:items-center lg:justify-center h-screen">
         <!-- Container for both sections -->
-        <div class="flex flex-col w-full h-full md:bg-base-100 dark:md:bg-base-100 md:rounded-lg md:shadow-lg md:overflow-hidden max-w-7xl">
+        <div class="flex flex-col w-full h-full lg:bg-base-100 dark:lg:bg-base-100 lg:rounded-lg lg:shadow-lg lg:overflow-hidden max-w-7xl">
             <div class="flex flex-col h-full md:flex-row">
                 <!-- First Section - Light Blue Background (Hidden on mobile, visible on md+) -->
-                <section class="relative hidden p-6 md:block md:w-1/2 bg-base-200 dark:bg-base-200">
-                    <h2 class="mb-4 text-2xl font-semibold text-base-content dark:text-base-content">{{ title }}</h2>
-                    <p class="mb-4 text-base-content/80 dark:text-base-content/80">lorem iopsum</p>
-                    <p class="text-base-content/80 dark:text-base-content/80">dolor shit</p>
+                <section class="relative hidden p-4 md:block md:w-1/2" [class]="getLeftSectionClasses()">
+                    <app-logo [content]="appName" [bgColor]="bgColor"> </app-logo>
+
+                    <article>
+                        <span [class]="'block text-6xl font-bold ' + styleConfig.accent">{{ stepNumber || "00" }}</span>
+                        <span [class]="'block text-lg font-medium ' + styleConfig.text">{{ title }}</span>
+                        <h1 [class]="'block text-6xl font-semibold mt-8 ' + styleConfig.text">{{ subTitle }}</h1>
+                    </article>
+
+                    <div class="mt-8 simplified_state" *ngIf="showSimplifiedState">
+                        <ng-container *ngFor="let paragraph of paragraphs">
+                            <app-paragraph [content]="paragraph.content" [modifier]="paragraph.modifier" [bgColor]="bgColor" class="mb-4"> </app-paragraph>
+                        </ng-container>
+                    </div>
+
+                    <div class="h-full mt-8 scrolling_state" *ngIf="showScrollingState">
+                        <app-scroll-area>
+                            <ng-content select="[scrollContent]"></ng-content>
+                        </app-scroll-area>
+                    </div>
+
+                    <div class="h-full mt-8 tabbed_state" *ngIf="showTabState">
+                        <ng-content select="[tabContent]"></ng-content>
+                    </div>
+
+                    <div class="h-full mt-8 table_state" *ngIf="showTableState">
+                        <ng-content select="[tableContent]"></ng-content>
+                    </div>
                 </section>
 
                 <!-- Mobile About Us Button (visible only on small screens) -->
-                <div class="sticky top-0 z-10 w-full p-4 md:hidden bg-base-200 dark:bg-base-200">
+                <section class="sticky top-0 z-10 w-full md:hidden" [class]="getLeftSectionClasses()">
                     <div class="flex items-center justify-between">
-                        <h2 class="text-2xl font-semibold text-base-content dark:text-base-content">{{ title }}</h2>
+                        <app-logo [content]="appName" [bgColor]="bgColor"> </app-logo>
+
                         <div class="flex items-center">
                             <button
-                                class="text-primary hover:bg-primary/10 focus:ring-4 focus:ring-primary/30 font-medium rounded-lg text-sm p-2.5 focus:outline-none"
-                                (click)="toggleSidebar()">
+                                class="hover:bg-primary/10 font-medium rounded-lg text-sm p-2.5 focus:outline-none"
+                                (click)="toggleSidebar()"
+                                [class]="getSidebarBtnClasses()">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         fill-rule="evenodd"
@@ -28,78 +54,35 @@
                         </div>
                     </div>
                     <!-- Hint text only visible on small screens -->
-                    <p class="mt-1 text-sm italic text-primary md:hidden">Click the menu button to see helper content</p>
-                </div>
-
-                <!-- Second Section - White Background -->
-                <section class="flex flex-col flex-grow w-full p-6 md:w-1/2 bg-base-100 dark:bg-base-100">
-                    <h2 class="mb-4 text-2xl font-semibold text-base-content dark:text-base-content">big content comes here</h2>
-                    <p class="mb-6 text-base-content/80 dark:text-base-content/80">
-                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin vel ante a orci tempus eleifend ut et
-                        magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.
-                    </p>
-                    <!-- This div will grow to fill available space -->
-                    <div class="flex-grow">
-                        <!-- Future form fields will go here -->
-                    </div>
-                    <div class="mt-auto text-center">
-                        <button
-                            class="px-6 py-2 font-bold transition duration-300 rounded-lg bg-primary hover:bg-primary-focus text-primary-content dark:bg-primary dark:hover:bg-primary-focus dark:text-primary-content">
-                            dolor sit
-                        </button>
-                    </div>
+                    <p class="mt-1 text-sm italic md:hidden" [class]="getSidebarBtnClasses()">Click the menu button to see helper content</p>
                 </section>
 
-                <!--
-            <section [class]="getLeftSectionClasses()">
-                <app-logo [content]="appName" [bgColor]="bgColor"> </app-logo>
-
-                <article>
-                    <span [class]="'block text-6xl font-bold ' + styleConfig.accent">{{ stepNumber || '00' }}</span>
-                    <span [class]="'block text-lg font-medium ' + styleConfig.text">{{ title }}</span>
-                    <h1 [class]="'block text-6xl font-semibold mt-8 ' + styleConfig.text">{{ subTitle }}</h1>
-                </article>
-
-                <div class="mt-8 simplified_state" *ngIf="showSimplifiedState">
-                    <ng-container *ngFor="let paragraph of paragraphs">
-                        <app-paragraph [content]="paragraph.content" [modifier]="paragraph.modifier" [bgColor]="bgColor" class="mb-4"> </app-paragraph>
-                    </ng-container>
-                </div>
-
-                <div class="h-full mt-8 scrolling_state" *ngIf="showScrollingState">
-                    <app-scroll-area>
-                        <ng-content select="[scrollContent]"></ng-content>
-                    </app-scroll-area>
-                </div>
-
-                <div class="h-full mt-8 tabbed_state" *ngIf="showTabState">
-                    <ng-content select="[tabContent]"></ng-content>
-                </div>
-
-                <div class="h-full mt-8 table_state" *ngIf="showTableState">
-                    <ng-content select="[tableContent]"></ng-content>
-                </div>
-            </section>
-            <section class="flex items-center justify-center w-full p-8 card-right-side lg:w-1/2 bg-slate-100">
-                <ng-content select="[rightContent]"></ng-content>
-            </section>
--->
+                <!-- Second Section - White Background -->
+                <section class="flex flex-col items-center justify-center flex-grow w-full p-4 md:w-1/2 bg-slate-100 dark:bg-base-100">
+                    <!-- This div will grow to fill available space -->
+                    <div
+                        class="w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                        <ng-content select="[rightContent]"></ng-content>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 </main>
 
-<!-- Off-canvas sidebar - Updated to 85% width -->
+<!-- Off-canvas sidebar -->
 <div
-    class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform bg-base-100 dark:bg-base-100 w-[85%] shadow-lg"
+    class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform w-[85%] shadow-lg"
     [ngClass]="sidebarOpen ? 'transform-none' : '-translate-x-full'"
+    [class]="getLeftSectionClasses()"
     tabindex="-1">
     <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-semibold text-base-content dark:text-base-content">About us</h2>
+        <span [class]="'block text-lg font-medium ' + styleConfig.text">{{ title }}</span>
         <button
             type="button"
-            class="text-base-content/70 bg-transparent hover:bg-base-200 hover:text-base-content dark:hover:bg-base-200 dark:hover:text-base-content rounded-lg text-sm p-1.5 inline-flex items-center"
-            (click)="toggleSidebar()">
+            class="hover:bg-primary/10 font-medium rounded-lg text-sm p-2.5 focus:outline-none"
+            (click)="toggleSidebar()"
+            [class]="getSidebarBtnClasses()">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                     fill-rule="evenodd"
@@ -110,13 +93,33 @@
         </button>
     </div>
     <div class="py-4 overflow-y-auto">
-        <p class="mb-4 text-base-content/80 dark:text-base-content/80">
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin vel ante a orci tempus eleifend ut et magna. Lorem
-            ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.
-        </p>
-        <p class="text-base-content/80 dark:text-base-content/80">color shit</p>
+        <article>
+            <span [class]="'block text-6xl font-bold ' + styleConfig.accent">{{ stepNumber || "00" }}</span>
+            <span [class]="'block text-lg font-medium ' + styleConfig.text">{{ title }}</span>
+            <h1 [class]="'block text-6xl font-semibold mt-2 md:mt-4 ' + styleConfig.text">{{ subTitle }}</h1>
+        </article>
+
+        <div class="mt-8 simplified_state" *ngIf="showSimplifiedState">
+            <ng-container *ngFor="let paragraph of paragraphs">
+                <app-paragraph [content]="paragraph.content" [modifier]="paragraph.modifier" [bgColor]="bgColor" class="mb-4"> </app-paragraph>
+            </ng-container>
+        </div>
+
+        <div class="h-full mt-8 scrolling_state" *ngIf="showScrollingState">
+            <app-scroll-area>
+                <ng-content select="[scrollContent]"></ng-content>
+            </app-scroll-area>
+        </div>
+
+        <div class="h-full mt-8 tabbed_state" *ngIf="showTabState">
+            <ng-content select="[tabContent]"></ng-content>
+        </div>
+
+        <div class="h-full mt-8 table_state" *ngIf="showTableState">
+            <ng-content select="[tableContent]"></ng-content>
+        </div>
     </div>
 </div>
 
 <!-- Backdrop for sidebar (only visible when sidebar is open) -->
-<div *ngIf="sidebarOpen" class="fixed inset-0 z-30 bg-opacity-50 bg-neutral dark:bg-neutral dark:bg-opacity-80" (click)="toggleSidebar()"></div>
+<div *ngIf="sidebarOpen" class="fixed inset-0 z-30 bg-opacity-50 bg-slate-200 dark:bg-slate-100 dark:bg-opacity-80" (click)="toggleSidebar()"></div>

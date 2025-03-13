@@ -5,7 +5,7 @@ export function getScrollAreaStyles(bgColor: BackgroundColor): ScrollAreaStyles 
     const isGray = bgColor === 'gray';
 
     return {
-        base: 'h-[50%] w-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full',
+        base: 'h-full w-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full',
         scrollbar: {
             track: 'scrollbar-track-transparent',
             thumb: {
