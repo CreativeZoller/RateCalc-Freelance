@@ -14,8 +14,12 @@ export function getTabStyles(orientation: TabOrientation, bgColor: BackgroundCol
 
         tabTrigger: {
             base: 'inline-block py-4 px-6 font-medium border-b-4 border-transparent uppercase',
-            active: isGray ? 'border-b-blue-base text-gray-dark tablink whitespace-nowrap' : 'border-b-yellow-base text-yellow-base tablink whitespace-nowrap',
-            inactive: isGray ? 'text-gray-base hover:text-gray-dark' : 'text-slate-200 hover:text-yellow-base',
+            active: isGray
+                ? 'border-b-primaryBlue text-primaryGray-link tablink whitespace-nowrap'
+                : 'border-b-primaryBlue-link text-primaryBlue-link tablink whitespace-nowrap',
+            inactive: isGray
+                ? 'text-text hover:text-primaryGray-link tablink whitespace-nowrap'
+                : 'text-slate-200 hover:text-primaryBlue-link tablink whitespace-nowrap',
         },
 
         content: 'flex-1 h-full',

@@ -29,9 +29,9 @@ import { SkeletonComponent } from '@components/skeleton/skeleton.component';
         <div class="fixed inset-0 flex items-center justify-center">
             <div class="space-y-4">
                 <app-skeleton className="h-4 w-48">
-                    <span class="sr-only">Loading...</span>
+                    <span class="sr-only">Loading the app...</span>
                 </app-skeleton>
-                <p class="text-center text-gray-600 not-sr-only">Loading...</p>
+                <p class="text-center text-gray-600 not-sr-only">Loading the app...</p>
             </div>
         </div>
     `,

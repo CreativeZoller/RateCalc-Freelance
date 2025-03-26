@@ -85,6 +85,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/sum-2/sum-2.component').then((m) => m.Sum2Component),
     },
     {
+        path: 'information',
+        title: 'Get Involved',
+        data: {
+            apptitle: environment.appTitle,
+        },
+        loadComponent: () => import('./pages/information/information.component').then((m) => m.InformationComponent),
+    },
+    {
         path: '**',
         title: 'Page not found',
         data: {

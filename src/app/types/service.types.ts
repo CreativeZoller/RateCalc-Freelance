@@ -1,4 +1,4 @@
-import { ExpenseRateType } from './expenses.type';
+import { ExpenseRateType } from './expense.types';
 
 export interface ServiceFormData {
     formId: string;

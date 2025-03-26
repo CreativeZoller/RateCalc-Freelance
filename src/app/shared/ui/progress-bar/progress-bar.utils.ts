@@ -20,7 +20,7 @@ export function getProgressBarStyles(className?: string, length?: string, showLa
 
     return {
         container: `relative ${containerWidth} ${paddingTop}`.trim(),
-        indicator: `flex h-full items-center justify-center text-white rounded-full transition-colors duration-300 ${className || 'bg-blue-base'}`,
+        indicator: `flex h-full items-center justify-center text-background-100 rounded-full transition-colors duration-300 ${className || 'bg-primaryBlue'}`,
     };
 }
 

@@ -1,6 +1,5 @@
 /**
  * Interface for toast notification data
- * @interface Toast
  */
 export interface Toast {
     /** The title/header of the toast message */

@@ -29,18 +29,18 @@ export function getInputStyles(size: FormElementSize, disabled: boolean): InputS
     const baseInputClasses = [
         'block',
         'px-4 py-2',
-        'text-sm font-normal text-gray-900 placeholder-gray-400',
+        'text-sm font-normal text-text placeholder-gray-400',
         'rounded-lg',
         'shadow-sm',
         'border border-gray-300',
         'leading-relaxed',
         'duration-75',
-        'focus:border-blue-base',
+        'focus:border-primaryBlue',
         'focus:outline-none',
         'focus:ring',
-        'focus:ring-blue-base',
+        'focus:ring-primaryBlue',
         'focus:ring-opacity-50',
-        'hover:border-blue-base',
+        'hover:border-primaryBlue',
         'sm:text-sm',
     ];
 

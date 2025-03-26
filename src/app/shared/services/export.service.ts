@@ -172,46 +172,4 @@ export class ExportService {
 
         XLSX.writeFile(workbook, 'expense-summary.xlsx');
     }
-
-    exportToCSV(expenseSummary: ExpenseSummary, calculatedRates: CalculationResults): void {
-        const data = [
-            ['Expense Summary'],
-            [''],
-            ['Categories'],
-            ['Category', 'Item', 'Original Value', 'Rate', 'Yearly Amount', 'Percentage of Category'],
-            ...expenseSummary.categories.flatMap((category) =>
-                category.items.map((item) => [
-                    category.name,
-                    item.name,
-                    item.originalValue,
-                    item.rate,
-                    item.amount,
-                    `${((item.amount / category.total) * 100).toFixed(1)}%`,
-                ])
-            ),
-            [''],
-            ['Working Time'],
-            ['Working Days', expenseSummary.timeMetrics.workingDays],
-            ['Days Off', expenseSummary.timeMetrics.daysOff],
-            ['Hours per Day', expenseSummary.timeMetrics.hoursPerDay],
-            [''],
-            ['Minimum Rates'],
-            ['Hourly Rate', calculatedRates.minHourlyRate],
-            ['Daily Rate', calculatedRates.minDailyRate],
-            ['Monthly Rate', calculatedRates.minMonthlyRate],
-            [''],
-            ['Total Annual Expenses', expenseSummary.totalExpenses],
-        ];
-
-        const csv = Papa.unparse(data);
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'expense-summary.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
 }

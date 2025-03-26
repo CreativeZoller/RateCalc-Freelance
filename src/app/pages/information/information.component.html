@@ -1,0 +1,89 @@
+<app-page-layout
+    [title]="title"
+    [subTitle]="subTitle"
+    [appName]="appName"
+    [stepNumber]="'info'"
+    [showSimplifiedState]="true"
+    [paragraphs]="paragraphs"
+    [bgColor]="bgColor">
+    <div rightContent class="flex flex-col w-full h-full space-y-8">
+        <div class="flex flex-col flex-1 min-h-0">
+            <div class="flex-1 overflow-hidden">
+                <div
+                    class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-text">Subscribe to Updates</h2>
+
+                        <div class="prose prose-slate dark:prose-invert">
+                            <p class="text-text">
+                                Join our community to receive the latest updates, tips, and resources for freelancers and independent professionals.
+                            </p>
+                        </div>
+
+                        <div class="my-4" id="formgroup">
+                            <form [formGroup]="subscribeForm" (ngSubmit)="onSubmit()" class="space-y-4">
+                                <div class="space-y-4">
+                                    <div class="relative flex gap-4">
+                                        <app-input
+                                            type="text"
+                                            id="firstName"
+                                            size="half"
+                                            label="First Name"
+                                            [required]="true"
+                                            [control]="getControl('firstName')"
+                                            placeholder="John">
+                                        </app-input>
+                                        <app-input
+                                            type="text"
+                                            id="lastName"
+                                            size="half"
+                                            label="Last Name"
+                                            [required]="true"
+                                            [control]="getControl('lastName')"
+                                            placeholder="Doe">
+                                        </app-input>
+                                    </div>
+                                    <div class="relative flex gap-4">
+                                        <app-input
+                                            type="email"
+                                            id="email"
+                                            size="full"
+                                            label="Email Address"
+                                            [required]="true"
+                                            [control]="getControl('email')"
+                                            placeholder="your@email.com">
+                                        </app-input>
+                                    </div>
+                                    <div class="relative flex gap-4">
+                                        <app-checkbox
+                                            id="consent"
+                                            [control]="getControl('consent')"
+                                            label="I agree to receive your newsletters and accept the data privacy statement">
+                                        </app-checkbox>
+                                        <div class="absolute left-[-9999px] invisible sr-only">
+                                            <label for="e-mail">Your email</label>
+                                            <input type="text" id="e-mail" name="url" tabindex="-1" autocomplete="nope" [formControl]="getControl('e-mail')" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between">
+                                    <app-button variant="primary" fontWeight="semibold" [disabled]="!subscribeForm.valid || isSubmitting" type="submit">
+                                        {{ isSubmitting ? "Subscribing..." : "Subscribe" }}
+                                    </app-button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="prose prose-slate dark:prose-invert">
+                            <p class="text-sm text-text">
+                                By subscribing, you agree to receive occasional updates and marketing messages. You can unsubscribe at any time using the link
+                                in the newsletter.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-page-layout>

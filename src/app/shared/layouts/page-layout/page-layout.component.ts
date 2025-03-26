@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ParagraphComponent } from '@components/paragraph/paragraph.component';
 import { ScrollAreaComponent } from '@components/scroll-area/scroll-area.component';
 import { TabsComponent } from '@components/tabs/tabs.component';
@@ -30,29 +31,27 @@ export class PageLayoutComponent implements PageLayoutProps {
         content: string;
         modifier: 'bold' | 'italic' | 'underlined' | 'normal';
     }> = [];
+    sidebarOpen = signal(false);
+
+    constructor(private router: Router) {}
 
     get styleConfig() {
         return styleConfigs[this.bgColor];
     }
-
-    sidebarOpen = false;
 
     getLeftSectionClasses(): string {
         return `lg:w-1/2 p-4 ${this.styleConfig.background}`;
     }
 
     getSidebarBtnClasses(): string {
-        return `text-${this.bgColor === 'gray' ? 'blue' : 'yellow'}-base`;
+        return `${this.bgColor === 'gray' ? 'text-primaryGray-link' : 'text-primaryBlue-link'}`;
     }
 
     toggleSidebar() {
-        this.sidebarOpen = !this.sidebarOpen;
+        this.sidebarOpen.update((value) => !value);
+    }
 
-        // Prevent body scrolling when sidebar is open
-        if (this.sidebarOpen) {
-            document.body.classList.add('overflow-hidden');
-        } else {
-            document.body.classList.remove('overflow-hidden');
-        }
+    navigateToInvolvement() {
+        this.router.navigate(['/information']);
     }
 }

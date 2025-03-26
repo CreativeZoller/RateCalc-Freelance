@@ -17,23 +17,19 @@
  *   <app-tab-panel>Second tab content</app-tab-panel>
  * </app-tabs>
  */
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-tab-panel',
     standalone: true,
-    template: '<ng-content *ngIf="isActive"></ng-content>',
-    styles: [
-        `
-            :host {
-                display: block;
-                height: 100%;
-            }
-        `,
-    ],
+    imports: [CommonModule],
+    template: `
+        <div [class]="isActive ? 'block' : 'hidden'">
+            <ng-content></ng-content>
+        </div>
+    `,
 })
 export class TabPanelComponent {
-    @Input() isActive = false;
-
-    constructor(public elementRef: ElementRef) {}
+    @Input() isActive: boolean = false;
 }

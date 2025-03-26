@@ -13,15 +13,15 @@ export function getDialogStyles(size: DialogSize): DialogStyles {
         container: `flex flex-col rounded-2xl py-4 px-5 fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-h-96 ${sizeClasses[size]} z-50 bg-gradient-to-br from-white to-gray-100`,
         header: {
             container: 'flex justify-between items-center pb-4 border-b border-gray-200',
-            title: 'text-gray-900 font-medium',
+            title: 'text-primaryGray font-medium',
         },
         content: 'overflow-y-auto pt-4 min-h-[100px]',
         footer: 'flex items-center justify-end pt-4 border-t border-gray-200',
         closeButton: 'block cursor-pointer hover:opacity-70 transition-opacity',
         footerButtons: {
             container: 'flex gap-3',
-            primary: 'px-4 py-2 bg-blue-base text-white font-semibold rounded-lg hover:bg-blue-dark transition-colors',
-            secondary: 'px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors',
+            primary: 'px-4 py-2 bg-primaryBlue text-white font-semibold rounded-lg hover:bg-primaryBlue-hover transition-colors',
+            secondary: 'px-4 py-2 bg-gray-200 text-primaryGray font-semibold rounded-lg hover:bg-gray-300 transition-colors',
         },
     };
 }

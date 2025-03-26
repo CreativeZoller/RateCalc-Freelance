@@ -1,30 +1,3 @@
-/**
- * A modal dialog component with header, content, and footer sections.
- * Supports different sizes and customizable layout with two-way binding for open state.
- * Features primary and secondary action buttons in the footer.
- *
- * @component
- * @example
- * // Basic dialog with two-way binding
- * <app-dialog
- *   [(isOpen)]="showDialog"
- *   [header]="{ title: 'Welcome' }">
- *   <div dialogContent>
- *     <p>Dialog content goes here</p>
- *   </div>
- * </app-dialog>
- *
- * // Dialog with footer actions
- * <app-dialog
- *   [(isOpen)]="showConfirm"
- *   [header]="{ title: 'Confirm Action' }"
- *   [hasFooter]="true"
- *   (secondaryAction)="handleSecondaryAction($event)">
- *   <div dialogContent>
- *     <p>Are you sure you want to proceed?</p>
- *   </div>
- * </app-dialog>
- */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogSize, DialogProps, DialogHeader } from './dialog.types';

@@ -35,24 +35,27 @@ export class ButtonComponent {
     @Output() onClick = new EventEmitter<MouseEvent>();
 
     private variantClasses: Record<ButtonVariant, string> = {
-        primary: 'bg-blue-base hover:bg-blue-dark text-white',
-        success: 'bg-green-base hover:bg-green-dark text-white',
-        secondary: 'bg-gray-base hover:bg-gray-dark text-white',
-        danger: 'bg-red-base hover:bg-red-dark text-white',
+        primary: 'bg-primaryBlue hover:bg-primaryBlue-hover focus:bg-primaryBlue-focus text-primaryBlue-text',
+        secondary: 'bg-primaryGray hover:bg-primaryGray-hover focus:bg-primaryGray-focus text-primaryGray-text',
+        success: 'bg-success hover:bg-success-hover focus:bg-success-focus text-success-text',
+        danger: 'bg-error hover:bg-error-hover focus:bg-error-focus text-error-text',
     };
 
     private outlinedVariantClasses: Record<ButtonVariant, string> = {
-        primary: 'border-blue-base text-blue-base hover:bg-blue-base hover:text-white',
-        success: 'border-green-base text-green-base hover:bg-green-base hover:text-white',
-        secondary: 'border-gray-base text-gray-base hover:bg-gray-base hover:text-white',
-        danger: 'border-red-base text-red-base hover:bg-red-base hover:text-white',
+        primary:
+            'border-primaryBlue text-primaryBlue hover:bg-primaryBlue focus:bg-primaryBlue-focus focus:border-primaryBlue-focus hover:text-primaryBlue-text focus:text-primaryBlue-text',
+        secondary:
+            'border-primaryGray text-primaryGray hover:bg-primaryGray focus:bg-primaryGray-focus focus:border-primaryGray-focus hover:text-primaryGray-text focus:text-primaryGray-text',
+        success:
+            'border-success text-success hover:bg-success focus:bg-success-focus focus:border-success-focus hover:text-success-link focus:text-success-text',
+        danger: 'border-error text-error hover:bg-error focus:bg-error-focus focus:border-error-focus hover:text-error-link focus:text-error-text',
     };
 
     private linkVariantClasses: Record<ButtonVariant, string> = {
-        primary: 'text-blue-base hover:text-blue-dark',
-        success: 'text-green-base hover:text-green-dark',
-        secondary: 'text-gray-base hover:text-gray-dark',
-        danger: 'text-red-base hover:text-red-dark',
+        primary: 'text-primaryBlue hover:text-primaryBlue-hover focus:text-primaryBlue-focus',
+        secondary: 'text-primaryGray hover:text-primaryGray-hover focus:text-primaryGray-focus',
+        success: 'text-success hover:text-success-hover focus:text-success-focus',
+        danger: 'text-error hover:text-error-hover focus:text-error-focus',
     };
 
     private fontWeightClasses: Record<ButtonFontWeight, string> = {
