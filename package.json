@@ -2,7 +2,7 @@
   "name": "ratecalc-freelance",
   "releaseName": "Freelancer Rate Calculator",
   "releaseSlogan": "The Path to Freelance Success Starts Here",
-  "version": "1.0.0",
+  "version": "0.0.6",
   "private": true,
   "license": "GNU-3.0",
   "scripts": {
