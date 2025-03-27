@@ -59,7 +59,7 @@ export class InformationComponent {
 
     private addSubscriber(subscriberData: { email: string; firstName: string; lastName: string }) {
         const url = 'https://api.brevo.com/v3/contacts';
-        const apiKey = environment.brevoApiKey;
+        const apiKey = process.env.brevoApiKey;
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'api-key': apiKey,
@@ -95,7 +95,7 @@ export class InformationComponent {
             const { email, firstName, lastName } = this.subscribeForm.value;
 
             try {
-                const apiKey = environment.brevoApiKey;
+                const apiKey = process.env.brevoApiKey;
                 if (!apiKey) {
                     throw new Error('API key not configured');
                 }
