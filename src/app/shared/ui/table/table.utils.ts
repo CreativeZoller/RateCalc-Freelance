@@ -16,7 +16,7 @@ export function getTableStyles(bgColor: BackgroundColor): TableStyles {
     const isGray = bgColor === 'gray';
 
     return {
-        text: isGray ? 'text-gray-base' : 'text-slate-200',
+        text: isGray ? 'text-primaryGray' : 'text-primaryBlue',
         header: isGray ? 'bg-slate-300' : 'bg-slate-200/40',
         headerRow: isGray ? 'bg-slate-300' : 'bg-slate-200/40',
         headerCell: isGray ? 'text-gray-base' : 'text-slate-200',

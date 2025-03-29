@@ -238,10 +238,4 @@ export class Sum2Component implements OnInit {
             this.exportService.exportToExcel(this.expenseSummary, this.calculatedRates);
         }
     }
-
-    exportToCSV(): void {
-        if (this.expenseSummary && this.calculatedRates) {
-            this.exportService.exportToCSV(this.expenseSummary, this.calculatedRates);
-        }
-    }
 }

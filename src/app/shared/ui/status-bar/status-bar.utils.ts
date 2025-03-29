@@ -8,7 +8,7 @@ export function getStatusBarStyles(length?: string): StatusBarStyles {
         list: 'flex justify-between w-full mb-4',
         item: {
             base: 'w-4 h-4 transition-colors duration-300 font-semibold',
-            active: 'text-blue-base',
+            active: 'text-primaryBlue',
             inactive: 'text-gray-200',
         },
     };

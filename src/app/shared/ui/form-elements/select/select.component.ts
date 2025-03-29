@@ -34,8 +34,8 @@ import { getSelectStyles } from './select.utils';
             [class]="styles.select"
             (blur)="onTouched()"
             (change)="onChange($event)">
-            <option value="" *ngIf="!defaultValue && !required">Select an option</option>
-            <option *ngFor="let item of data" [value]="item.value" [selected]="item.value === defaultValue">
+            <option value="" *ngIf="!required && !hasValue">Select an option</option>
+            <option *ngFor="let item of data" [value]="item.value">
                 {{ item.label }}
             </option>
         </select>
@@ -48,7 +48,6 @@ export class SelectComponent implements ControlValueAccessor {
     @Input() multiselect: boolean = false;
     @Input() size: FormElementSize = 'full';
     @Input() data: SelectData[] = [];
-    @Input() defaultValue?: string | number;
 
     @Input() set disabled(value: boolean) {
         if (value !== this._disabled) {
@@ -68,14 +67,15 @@ export class SelectComponent implements ControlValueAccessor {
         if (this._disabled) {
             this._control.disable();
         }
-        if (this.defaultValue) {
-            this._control.setValue(this.defaultValue);
-        }
     }
     get control(): FormControl {
         return this._control;
     }
     private _control: FormControl = new FormControl();
+
+    get hasValue(): boolean {
+        return !!this.control.value;
+    }
 
     @HostBinding('class')
     get hostClasses(): string {

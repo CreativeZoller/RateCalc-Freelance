@@ -1,5 +1,4 @@
 export * from './button';
-export * from './card';
 export * from './dialog';
 export * from './list-group';
 export * from './loading';

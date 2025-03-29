@@ -3,15 +3,15 @@ import { StyleConfig } from '../types/style-config.types';
 
 export const styleConfigs: Record<BackgroundColor, StyleConfig> = {
     blue: {
-        text: 'text-slate-200',
-        background: 'bg-gradient-to-br from-blue-light to-blue-dark',
+        text: 'text-primaryBlue-text',
+        background: 'bg-gradient-to-br from-primaryBlue-hover to-primaryBlue-focus',
         accent: 'text-slate-200/60',
-        neutral: 'text-yellow-base',
+        neutral: 'text-primaryBlue-link',
     },
     gray: {
-        text: 'text-gray-base',
-        background: 'bg-gradient-to-br from-rose-50 to-gray-light',
-        accent: 'text-gray-300',
-        neutral: 'text-blue-base',
+        text: 'text-primaryGray-text',
+        background: 'bg-gradient-to-br from-primaryGray to-primaryGray-focus',
+        accent: 'text-slate-200/60',
+        neutral: 'text-primaryBlue',
     },
 };

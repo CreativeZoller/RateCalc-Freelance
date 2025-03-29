@@ -1,5 +1,12 @@
 import { Injectable, signal } from '@angular/core';
-import { ServiceFormData } from 'app/types';
+
+/**
+ * Interface representing form data structure
+ */
+interface FormData {
+    formId: string;
+    controls: Record<string, unknown>;
+}
 
 /**
  * Service for managing form data using Angular signals
@@ -15,7 +22,7 @@ import { ServiceFormData } from 'app/types';
 })
 export class FormSignalService {
     /** Signal storing all form data */
-    private readonly formSignal = signal<ServiceFormData[]>([]);
+    private formSignal = signal<FormData[]>([]);
 
     /**
      * Creates a new form entry if it does not exist, otherwise updates it.
@@ -41,7 +48,7 @@ export class FormSignalService {
      * @param {string} formId - Form identifier to retrieve
      * @returns {FormData | undefined} The form data or undefined if not found
      */
-    getFormData(formId: string): ServiceFormData | undefined {
+    getFormData(formId: string): FormData | undefined {
         return this.formSignal().find((form) => form.formId === formId);
     }
 
@@ -69,9 +76,9 @@ export class FormSignalService {
 
     /**
      * Gets all stored form data
-     * @returns {ServiceFormData[]} Array of all form data
+     * @returns {FormData[]} Array of all form data
      */
-    getAllFormData(): ServiceFormData[] {
+    getAllFormData(): FormData[] {
         return this.formSignal();
     }
 }

@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, ReactiveFormsModu
 import { InputType } from './input.types';
 import { FormElementSize } from '../common.types';
 import { getInputStyles } from './input.utils';
-// TODO: if type is number, add min and max values, min should be 0, max only generated if passed as attribute
+
 @Component({
     selector: 'app-input',
     standalone: true,
@@ -36,7 +36,7 @@ import { getInputStyles } from './input.utils';
             (blur)="onTouched()"
             (input)="onChange($event)" />
 
-        <span *ngIf="hint" class="text-xs text-gray-base font-normal mt-1 block">
+        <span *ngIf="hint" class="text-xs text-primaryGray font-normal mt-1 block">
             {{ hint }}
         </span>
     `,

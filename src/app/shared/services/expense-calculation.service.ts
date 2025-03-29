@@ -1,6 +1,31 @@
 import { Injectable } from '@angular/core';
 import { FormSignalService } from './form-signal.service';
-import { DetailedExpense, ExpenseCategory, ExpenseSummary, ExpenseFormData, ExpenseRateType, ExpenseCalculationResults } from 'app/types';
+import { DetailedExpense, ExpenseCategory, ExpenseSummary } from 'app/types/expense.types';
+
+type RateType = 'daily' | 'monthly' | 'yearly';
+
+interface FormControl {
+    value: string;
+    rate?: string;
+}
+
+interface FormControls {
+    [key: string]: FormControl;
+}
+
+interface FormData {
+    controls: FormControls;
+}
+
+/**
+ * Interface for expense calculation results
+ */
+interface ExpenseCalculationResults {
+    dailyTotal: number;
+    monthlyTotal: number;
+    yearlyTotal: number;
+    total: number;
+}
 
 /**
  * Service for calculating expenses across different rate types
@@ -9,18 +34,18 @@ import { DetailedExpense, ExpenseCategory, ExpenseSummary, ExpenseFormData, Expe
     providedIn: 'root',
 })
 export class ExpenseCalculationService {
-    constructor(private readonly formSignalService: FormSignalService) {}
+    constructor(private formSignalService: FormSignalService) {}
 
     /**
      * Calculates sum of values for a specific form and rate
      */
-    calculateRateSum(formId: string, rate: ExpenseRateType): number {
-        const FormData = this.formSignalService.getFormData(formId) as ExpenseFormData | undefined;
-        if (!FormData?.controls) return 0;
+    calculateRateSum(formId: string, rate: RateType): number {
+        const formData = this.formSignalService.getFormData(formId) as FormData | undefined;
+        if (!formData?.controls) return 0;
 
         const rateMultiplier = rate === 'daily' ? '365' : rate === 'monthly' ? '12' : '1';
 
-        return Object.values(FormData.controls).reduce<number>((sum, control) => {
+        return Object.values(formData.controls).reduce<number>((sum, control) => {
             if (control.rate === rateMultiplier && control.value) {
                 const value = parseFloat(control.value) || 0;
                 return sum + value;
@@ -33,7 +58,7 @@ export class ExpenseCalculationService {
      * Calculates totals based on rates for a specific form
      */
     calculateTotals(formId: string): ExpenseCalculationResults {
-        const formData = this.formSignalService.getFormData(formId) as ExpenseFormData | undefined;
+        const formData = this.formSignalService.getFormData(formId) as FormData | undefined;
         if (!formData) {
             return { dailyTotal: 0, monthlyTotal: 0, yearlyTotal: 0, total: 0 };
         }
@@ -115,17 +140,15 @@ export class ExpenseCalculationService {
         // Time Metrics
         const timeMetrics = this.calculateTimeMetrics();
 
-        const result = {
+        return {
             categories,
             totalExpenses,
             timeMetrics,
         };
-
-        return result;
     }
 
     private calculateCategoryExpenses(formId: string, categoryName: string): ExpenseCategory {
-        const formData = this.formSignalService.getFormData(formId) as ExpenseFormData | undefined;
+        const formData = this.formSignalService.getFormData(formId) as FormData | undefined;
         const items: DetailedExpense[] = [];
         let total = 0;
 
@@ -153,12 +176,10 @@ export class ExpenseCalculationService {
     }
 
     private calculateTimeMetrics() {
-        const workOffData = this.formSignalService.getFormData('workOff') as ExpenseFormData | undefined;
-        const workOnData = this.formSignalService.getFormData('workOn') as ExpenseFormData | undefined;
+        const workOffData = this.formSignalService.getFormData('workOffForm') as FormData | undefined;
+        const workOnData = this.formSignalService.getFormData('workOnForm') as FormData | undefined;
 
         if (!workOffData?.controls || !workOnData?.controls) {
-            // todo: use toast service instead
-            console.warn('Work off or work on data is missing');
             return {
                 workingDays: 0,
                 daysOff: 0,
@@ -171,15 +192,13 @@ export class ExpenseCalculationService {
         const vacations = parseFloat(workOffData.controls['vacations']?.value || '0');
         const daysOff = holidays + sickleaves + vacations;
 
-        const workdays = parseFloat(workOnData.controls['workdays']?.value || '0');
-        const workhours = parseFloat(workOnData.controls['workhours']?.value || '0');
-
-        const workingDays = workdays > 0 ? Math.floor(((365 - daysOff) / 7) * workdays) : 365 - daysOff;
+        const workingDays = 365 - daysOff;
+        const hoursPerDay = parseFloat(workOnData.controls['workhours']?.value || '0');
 
         return {
             workingDays,
             daysOff,
-            hoursPerDay: workhours,
+            hoursPerDay,
         };
     }
 

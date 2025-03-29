@@ -18,7 +18,7 @@
 
 ## Description
 
-Get paid what you're worth with RateCalc-Freelance! Our powerful calculator takes the guesswork out of setting your hourly rate for every project. Say goodbye to undercharging or overbidding, and hello to fair compensation for your hard work. Join the freelancing revolution today!
+Get paid what you're worth with Freelancer Rate Calculator! Our powerful calculator takes the guesswork out of setting your hourly rate for every project. Say goodbye to undercharging or overbidding, and hello to fair compensation for your hard work. Join the freelancing revolution today!
 
 ### Commands cheat-sheet for newcomers
 
@@ -47,9 +47,13 @@ For those who used npm till now, I would suggest to change to Yarn immediately. 
 
 ### Version
 
+0.0.6
+
+The application now support subsciption to the newsletter - this is only for the POC version, so every interested party can get timely updates and also will be able to participate for free tier when the final version ships.
+
 0.0.5
 
-The application now has properly separated components, services and types for better scalability. also the logic is seprated from view. Packages got updated. New functionalities added: export as pdf and export as xls.
+The application now has properly separated components, services and types for better scalability. Also the logic is seprated from view. Packages got updated. New functionalities added: export as pdf and export as xls. Mobile first responsive design added.
 
 0.0.4
 

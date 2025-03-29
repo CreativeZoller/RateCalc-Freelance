@@ -1,6 +1,32 @@
 import { Injectable } from '@angular/core';
 import { FormSignalService } from './form-signal.service';
-import { ExpenseRateType, CalculationFormData, CalculationFormControlData, CalculationServiceResults } from 'app/types';
+
+type RateType = 'daily' | 'monthly' | 'yearly';
+
+/**
+ * Interface for individual form control
+ */
+interface FormControlData {
+    value: string | number;
+    rate?: RateType;
+}
+
+/**
+ * Interface for form data structure
+ */
+interface FormData {
+    controls: Record<string, FormControlData>;
+}
+
+/**
+ * Interface for calculation results
+ */
+interface CalculationResults {
+    dailyTotal: number;
+    monthlyTotal: number;
+    yearlyTotal: number;
+    total: number;
+}
 
 /**
  * Service for performing calculations on form data
@@ -15,33 +41,33 @@ import { ExpenseRateType, CalculationFormData, CalculationFormControlData, Calcu
     providedIn: 'root',
 })
 export class CalculationService {
-    constructor(private readonly formSignalService: FormSignalService) {}
+    constructor(private formSignalService: FormSignalService) {}
 
     /**
-     * Type guard to check if an object is a valid CalculationFormControlData
+     * Type guard to check if an object is a valid FormControlData
      */
-    private isValidControl(control: unknown): control is CalculationFormControlData {
+    private isValidControl(control: unknown): control is FormControlData {
         return typeof control === 'object' && control !== null && 'value' in control;
     }
 
     /**
-     * Type guard to check if an object is a valid CalculationFormData
+     * Type guard to check if an object is a valid FormData
      */
-    private isValidCalculationFormData(CalculationFormData: unknown): CalculationFormData is CalculationFormData {
-        return typeof CalculationFormData === 'object' && CalculationFormData !== null && 'controls' in CalculationFormData;
+    private isValidFormData(formData: unknown): formData is FormData {
+        return typeof formData === 'object' && formData !== null && 'controls' in formData;
     }
 
     /**
      * Calculates sum of values for a specific form and rate
      */
-    calculateRateSum(formId: string, rate: ExpenseRateType): number {
-        const CalculationFormData = this.formSignalService.getFormData(formId);
+    calculateRateSum(formId: string, rate: RateType): number {
+        const formData = this.formSignalService.getFormData(formId);
 
-        if (!this.isValidCalculationFormData(CalculationFormData)) {
+        if (!this.isValidFormData(formData)) {
             return 0;
         }
 
-        return Object.values(CalculationFormData.controls).reduce((sum, control) => {
+        return Object.values(formData.controls).reduce((sum, control) => {
             if (this.isValidControl(control) && control.rate === rate) {
                 const value = parseFloat(control.value as string) || 0;
                 return sum + value;
@@ -53,10 +79,10 @@ export class CalculationService {
     /**
      * Calculates totals based on rates for a specific form
      */
-    calculateTotals(formId: string): CalculationServiceResults {
-        const CalculationFormData = this.formSignalService.getFormData(formId);
+    calculateTotals(formId: string): CalculationResults {
+        const formData = this.formSignalService.getFormData(formId);
 
-        if (!this.isValidCalculationFormData(CalculationFormData)) {
+        if (!this.isValidFormData(formData)) {
             return { dailyTotal: 0, monthlyTotal: 0, yearlyTotal: 0, total: 0 };
         }
 
@@ -66,7 +92,7 @@ export class CalculationService {
         let total = this.convertToYearlyTotal({ dailyTotal, monthlyTotal, yearlyTotal });
 
         // Check for numeric values without a defined rate type
-        Object.values(CalculationFormData.controls).forEach((control) => {
+        Object.values(formData.controls).forEach((control) => {
             if (this.isValidControl(control) && !control.rate) {
                 const numericValue = parseFloat(control.value as string);
                 if (!isNaN(numericValue)) {
@@ -77,7 +103,7 @@ export class CalculationService {
 
         // Store calculation results in form signal
         this.formSignalService.createOrUpdateFormData(formId, {
-            ...CalculationFormData.controls,
+            ...formData.controls,
             calculations: { dailyTotal, monthlyTotal, yearlyTotal, total },
         });
 
@@ -87,7 +113,7 @@ export class CalculationService {
     /**
      * Calculates grand totals across all forms
      */
-    calculateGrandTotals(): CalculationServiceResults {
+    calculateGrandTotals(): CalculationResults {
         const allForms = this.formSignalService.getAllFormData();
 
         return allForms.reduce(
@@ -107,7 +133,7 @@ export class CalculationService {
     /**
      * Converts all totals to yearly values for comparison
      */
-    convertToYearlyTotal(totals: Partial<CalculationServiceResults>): number {
+    convertToYearlyTotal(totals: Partial<CalculationResults>): number {
         return (totals.dailyTotal || 0) * 365 + (totals.monthlyTotal || 0) * 12 + (totals.yearlyTotal || 0);
     }
 
@@ -115,20 +141,20 @@ export class CalculationService {
      * Calculates totals based on numeric input values from a form
      */
     calculateHolidayTotals(formId: string): void {
-        const CalculationFormData = this.formSignalService.getFormData(formId);
+        const formData = this.formSignalService.getFormData(formId);
 
-        if (!this.isValidCalculationFormData(CalculationFormData)) {
+        if (!this.isValidFormData(formData)) {
             return;
         }
 
-        const total = Object.values(CalculationFormData.controls)
+        const total = Object.values(formData.controls)
             .filter((control) => this.isValidControl(control))
             .map((control) => Number(control.value))
             .reduce((sum, val) => sum + val, 0);
 
         // Store calculation results in form signal
         this.formSignalService.createOrUpdateFormData(formId, {
-            ...CalculationFormData.controls,
+            ...formData.controls,
             totalAvailableDaysOff: total,
         });
     }

@@ -25,14 +25,14 @@ export interface StyleConfig {
 export const styleConfigs: Record<BackgroundColor, StyleConfig> = {
     blue: {
         text: 'text-slate-200',
-        background: 'bg-blue-light',
+        background: 'bg-primaryBlue-hover',
         accent: 'text-slate-200/60',
-        neutral: 'text-yellow-base',
+        neutral: 'text-primaryBlue-link',
     },
     gray: {
-        text: 'text-gray-base',
-        background: 'bg-gray-light',
-        accent: 'text-gray-300',
-        neutral: 'text-blue-base',
+        text: 'text-slate-200',
+        background: 'bg-primaryGray-hover',
+        accent: 'text-gray-500',
+        neutral: 'text-primaryBlue',
     },
 };

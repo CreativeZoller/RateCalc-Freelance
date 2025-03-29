@@ -29,10 +29,10 @@
                 <div
                     class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 active:scrollbar-thumb-slate-400">
                     <div class="space-y-4">
-                        <h2 class="text-2xl font-bold text-gray-800">How much do you need to charge to break even?</h2>
+                        <h2 class="text-2xl font-bold text-text">How much do you need to charge to break even?</h2>
 
-                        <div class="my-4">
-                            <div class="max-w-xs mb-8 overflow-hidden rounded shadow-lg bg-gray-light">
+                        <div class="flex flex-wrap justify-between my-4">
+                            <div class="w-full mb-4 overflow-hidden rounded shadow-lg lg:w-[48%] md:mb-8 bg-gray-light">
                                 <div class="px-6 py-4 pb-2">
                                     <p class="pt-2 text-base text-gray-700">Your new hourly rate should be at least:</p>
                                 </div>
@@ -42,7 +42,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="max-w-xs mb-8 overflow-hidden rounded shadow-lg bg-gray-light">
+                            <div class="w-full mb-4 overflow-hidden rounded shadow-lg lg:w-[48%] md:mb-8 bg-gray-light">
                                 <div class="px-6 py-4 pb-2">
                                     <p class="pt-2 text-base text-gray-700">Your minimum rate per working day:</p>
                                 </div>
@@ -52,7 +52,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="max-w-xs mb-8 overflow-hidden rounded shadow-lg bg-gray-light">
+                            <div class="w-full mb-4 overflow-hidden rounded shadow-lg lg:w-[48%] md:mb-8 bg-gray-light">
                                 <div class="px-6 py-4 pb-2">
                                     <p class="pt-2 text-base text-gray-700">Your minimum rate per working month:</p>
                                 </div>
@@ -85,7 +85,7 @@
         <!-- Expense Categories -->
         <div *ngFor="let category of expenseSummary?.categories" class="space-y-4">
             <div class="flex items-center justify-between">
-                <h3 class="text-lg font-semibold text-gray-900">{{ category.name }}</h3>
+                <h3 class="text-lg font-semibold text-text">{{ category.name }}</h3>
                 <span class="text-lg font-bold text-blue-base">
                     {{ category.total | currencyConverter: "eur" : false }}
                 </span>
@@ -103,14 +103,14 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr *ngFor="let item of category.items">
-                            <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ item.name }}</td>
-                            <td class="px-6 py-4 text-sm text-right text-gray-900 whitespace-nowrap">
+                            <td class="px-6 py-4 text-sm text-text whitespace-nowrap">{{ item.name }}</td>
+                            <td class="px-6 py-4 text-sm text-right text-text whitespace-nowrap">
                                 {{ item.originalValue ?? 0 | currencyConverter: "eur" : false }}
                             </td>
                             <td class="px-6 py-4 text-sm text-right text-gray-500 whitespace-nowrap">
                                 {{ formatRate(item.rate) }}
                             </td>
-                            <td class="px-6 py-4 text-sm font-medium text-right text-gray-900 whitespace-nowrap">
+                            <td class="px-6 py-4 text-sm font-medium text-right text-text whitespace-nowrap">
                                 {{ item.amount | currencyConverter: "eur" : false }}
                             </td>
                         </tr>
@@ -121,42 +121,42 @@
 
         <!-- Time Metrics -->
         <div class="pt-6 border-t">
-            <h3 class="mb-4 text-lg font-semibold text-gray-900">Working Time Summary</h3>
+            <h3 class="mb-4 text-lg font-semibold text-text">Working Time Summary</h3>
             <div class="grid grid-cols-3 gap-4">
                 <div class="p-4 rounded-lg bg-gray-50">
                     <p class="text-sm text-gray-500">Working Days</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ getTimeMetric("workingDays") }}</p>
+                    <p class="text-2xl font-bold text-text">{{ getTimeMetric("workingDays") }}</p>
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50">
                     <p class="text-sm text-gray-500">Days Off</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ getTimeMetric("daysOff") }}</p>
+                    <p class="text-2xl font-bold text-text">{{ getTimeMetric("daysOff") }}</p>
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50">
                     <p class="text-sm text-gray-500">Hours per Day</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ getTimeMetric("hoursPerDay") }}</p>
+                    <p class="text-2xl font-bold text-text">{{ getTimeMetric("hoursPerDay") }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Calculated Rates -->
         <div class="pt-6 border-t">
-            <h3 class="mb-4 text-lg font-semibold text-gray-900">Minimum Rates</h3>
+            <h3 class="mb-4 text-lg font-semibold text-text">Minimum Rates</h3>
             <div class="grid grid-cols-3 gap-4">
                 <div class="p-4 rounded-lg bg-gray-50">
                     <p class="text-sm text-gray-500">Hourly Rate</p>
-                    <p class="text-2xl font-bold text-gray-900">
+                    <p class="text-2xl font-bold text-text">
                         {{ calculatedRates?.minHourlyRate ?? 0 | currencyConverter: "eur" : false }}
                     </p>
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50">
                     <p class="text-sm text-gray-500">Daily Rate</p>
-                    <p class="text-2xl font-bold text-gray-900">
+                    <p class="text-2xl font-bold text-text">
                         {{ calculatedRates?.minDailyRate ?? 0 | currencyConverter: "eur" : false }}
                     </p>
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50">
                     <p class="text-sm text-gray-500">Monthly Rate</p>
-                    <p class="text-2xl font-bold text-gray-900">
+                    <p class="text-2xl font-bold text-text">
                         {{ calculatedRates?.minMonthlyRate ?? 0 | currencyConverter: "eur" : false }}
                     </p>
                 </div>
@@ -166,7 +166,7 @@
         <!-- Export Buttons -->
         <div class="flex items-center justify-between pt-6 border-t">
             <div class="flex items-center justify-between">
-                <h3 class="text-xl font-bold text-gray-900">Total Annual Expenses</h3>
+                <h3 class="text-xl font-bold text-text">Total Annual Expenses</h3>
                 <span class="pl-4 text-xl font-bold text-blue-base">
                     {{ expenseSummary?.totalExpenses ?? 0 | currencyConverter: "eur" : false }}
                 </span>
@@ -174,7 +174,7 @@
             <div class="flex gap-2">
                 <button
                     (click)="exportToPDF()"
-                    class="inline-flex items-center px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-red-base hover:bg-red-dark">
+                    class="inline-flex items-center px-4 py-2 font-semibold transition-colors rounded-lg bg-error text-error-text hover:bg-error-hover focus:bg-error-focus">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path
                             stroke-linecap="round"
@@ -187,7 +187,7 @@
                 </button>
                 <button
                     (click)="exportToExcel()"
-                    class="inline-flex items-center px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-green-base hover:bg-green-dark">
+                    class="inline-flex items-center px-4 py-2 font-semibold transition-colors rounded-lg bg-success text-success-text hover:bg-success-hover focus:bg-success-focus">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path
                             stroke-linecap="round"
@@ -196,18 +196,6 @@
                             d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     Excel
-                </button>
-                <button
-                    (click)="exportToCSV()"
-                    class="inline-flex items-center px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-blue-base hover:bg-blue-dark">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
-                    </svg>
-                    CSV
                 </button>
             </div>
         </div>
