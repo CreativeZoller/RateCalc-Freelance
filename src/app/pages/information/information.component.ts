@@ -9,6 +9,7 @@ import { InputComponent } from '@components/form-elements/input/input.component'
 import { CheckboxComponent } from '@components/form-elements/checkbox/checkbox.component';
 import { ConfigurationService, ToastService } from '@services/index';
 import { ExpenseParagraph } from 'app/types';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-information',
@@ -58,7 +59,7 @@ export class InformationComponent {
 
     private addSubscriber(subscriberData: { email: string; firstName: string; lastName: string }) {
         const url = 'https://api.brevo.com/v3/contacts';
-        const apiKey = process.env['brevoApiKey'] || '';
+        const apiKey = environment.brevoApiKey;
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'api-key': apiKey,
@@ -94,7 +95,7 @@ export class InformationComponent {
             const { email, firstName, lastName } = this.subscribeForm.value;
 
             try {
-                const apiKey = process.env['brevoApiKey'] || '';
+                const apiKey = environment.brevoApiKey;
                 if (!apiKey) {
                     throw new Error('API key not configured');
                 }
