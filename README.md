@@ -1,5 +1,7 @@
 # RateCalc-Freelance
 
+## _The freelancer rate-calculator_
+
 ![GitHub issues](https://img.shields.io/github/issues-raw/CreativeZoller/ratecalc-freelance?logo=issues)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-raw/CreativeZoller/ratecalc-freelance)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CreativeZoller/ratecalc-freelance?logo=last%20commit)
@@ -9,16 +11,44 @@
 
 ## Table of Contents
 
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Features](#features)
+- [Tech Stack](#tech)
+- [Development](#development)
+- [Version History](#version)
+- [Available Demo](#demo)
+- [Running](#running)
 - [Testing](#testing)
 - [License](#license)
 - [Credits](#credits)
 
-## Description
+> The Path to Freelance Success Starts Here
 
-Get paid what you're worth with Freelancer Rate Calculator! Our powerful calculator takes the guesswork out of setting your hourly rate for every project. Say goodbye to undercharging or overbidding, and hello to fair compensation for your hard work. Join the freelancing revolution today!
+"A Proof Of Concept version for a modern mobile-first web application designed to simplify calculating your hourly rate with daily, monthly and yearly costs, working time and holiday calculations. Built with modern technologies. Perfect for solo entrepreneurs, small and medium sized companies, LLCs, LTs, etc. who want to make better living with properly aligning their rates with their needs."
+
+![running app in chrome browser][screenshot]
+
+## Features
+
+- 🧠 **Well-Planned workflow:** Get personalized recommendations for destinations, weather, and activities.
+- 📅 **Smart Scheduling:** Organize tasks, dates, and priorities with drag-and-drop functionality.
+- 📤 **Export Options:** Save plans as PDF (print-ready) or CSV for further editing.
+- 📱 **Responsive Design:** Works flawlessly on mobile and desktop.
+
+## Tech
+
+- **Frontend:** Angular - HTML enhanced for web apps!
+- **Backend:** None - No data storage in the P.O.C. version
+- **AI:** Sorry but none
+- **Styling:** Tailwind CSS
+- **Export:** jsPDF, PapaParse
+
+## Development
+
+Want to contribute? Great!
+
+Whether you’re a developer looking to contribute or a freelancer seeking a rate planner, RateCalc-Freelance is for you. Check out the docs, open an issue, or fork the repo to start crafting your next adventure!
+
+If you would like to contribute to this project, or having suggestions, feel free to read the [CONTRIBUTING](CONTRIBUTING.md) documentation and/or the [Contributor Covenant](https://www.contributor-covenant.org/) industry standard.
 
 ### Commands cheat-sheet for newcomers
 
@@ -45,11 +75,28 @@ For those who used npm till now, I would suggest to change to Yarn immediately. 
 | `npm publish`            | `yarn publish`            |
 | `npm cache clean`        | `yarn cache clean`        |
 
-### Version
+## Version
+
+Future
+
+For future version the following are planned:
+
+- page animations
+- i18n integration
+- dark mode and light/dark mode switcher
 
 0.0.6
 
-The application now support subsciption to the newsletter - this is only for the POC version, so every interested party can get timely updates and also will be able to participate for free tier when the final version ships.
+The application now support subsciption to the newsletter - this is only for the POC version, so every interested party can get timely updates and also will be able to participate for free tier when the final version ships. Circle CI also configured for better testing.
+
+- [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0
+- [Rxjs](https://rxjs.dev/) version 7.8.1
+- [Typescript](https://www.typescriptlang.org/) version 5.5.0
+- [Jspdf](https://github.com/parallax/jsPDF) version 2.5.1
+- [Autoprefixer](https://github.com/postcss/autoprefixer#readme) version 10.4.17
+- [Husky](https://github.com/typicode/husky#readme) version 9.1.7
+- [Prettier](https://prettier.io) version 3.4.2
+- [Tailwindcss](https://tailwindcss.com) version 3.4.1
 
 0.0.5
 
@@ -76,28 +123,9 @@ This project was generated with the following stack:
 - [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7
 - Active Eslint, prettier, husky, stylelint, Karma, etc.
 
-### Demo
+## Demo
 
-> Todo after functionality is done
-
-Live demo is available at: HREF
-
-https://shields.io/
-
-> Todo Local Circle CI https://circleci.com/docs/how-to-use-the-circleci-local-cli/
-
-<!--
-![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fgithub.com%2FCreativeZoller%2FRateCalc-Freelance)
-> Add Sonar coverage badge
-> Add Sonar tests badge
--->
-
-#### Features
-
-> Todo after functionality is done
-
-- Angular 13 for GUI with Angular-Material 15
-- Export of the generated calculations
+Live demo is available at: [https://rate-calculator-poc.netlify.app/](https://rate-calculator-poc.netlify.app/)
 
 ## Installation
 
@@ -107,9 +135,9 @@ It is very important to have node, npm and yarn installed.
 
 **nvm** - if you have nvm installed on your machine, please change for the proper version
 
-- Node v23.0.0
-- NPM v10.9.0
-- Yarn v1.22.17
+- Node v20.18.0
+- NPM v11.1.0
+- Yarn v1.22.10
 
 If Husky is not installed in your system, please also run the folowing command: `npm run prepare` or `yarn run prepare`, it will initialize Husky properly.
 
@@ -127,31 +155,23 @@ Since the project uses Husky to ensure some hooks are used properly, it is recom
 
 **Note:** if you have the Husky installed, first try to commit `git commit -m "Keep calm and commit 🎉"`
 
-## Usage
+## Running
 
-> Todo after functionality is done
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
-
-## Development server
+### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+### Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Testing
+
+> Todo: after Circle CI and unit testing successfully added
 
 ### Running unit tests
 
@@ -173,6 +193,4 @@ If you used any third-party assets that require attribution, list the creators w
 
 If you followed tutorials, include links to those here as well.
 
-## How to Contribute
-
-If you would like to contribute to this project, or having suggestions, feel free to read the [CONTRIBUTING](CONTRIBUTING.md) documentation and/or the [Contributor Covenant](https://www.contributor-covenant.org/) industry standard.
+[screenshot]: assets/images/app-running.png
