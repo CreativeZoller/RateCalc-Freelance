@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "ratecalc-freelance": {
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -40,11 +40,18 @@
             ],
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "outputPath": "dist/demo",
+            "outputPath": "dist/ratecalc-freelance",
             "polyfills": ["zone.js"],
             "scripts": [],
             "styles": ["src/global_styles.css"],
             "tsConfig": "tsconfig.app.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "configPath": "jest.config.ts",
+            "tsConfig": "tsconfig.spec.json"
           }
         },
         "serve": {
