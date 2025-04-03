@@ -270,6 +270,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/platform-browser-dynamic@^19.2.5":
+  version "19.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-19.2.5.tgz#0b8cd8e47ed5cd5b39fe909dcca8214b9a04e28a"
+  integrity sha512-15in8u4552EcdWNTXY2h0MKuJbk3AuXwWr0zVTum4CfB/Ss2tNTrDEdWhgAbhnUI0e9jZQee/fhBbA1rleMYrA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/platform-browser@^18.1.0":
   version "18.2.13"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-18.2.13.tgz#59458eb486ec97b2257e7469bb650358492fb823"
