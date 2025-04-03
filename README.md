@@ -87,7 +87,7 @@ For future version the following are planned:
 
 0.0.6
 
-The application now support subsciption to the newsletter - this is only for the POC version, so every interested party can get timely updates and also will be able to participate for free tier when the final version ships. Circle CI also configured for better testing.
+The application now support subsciption to the newsletter - this is only for the POC version, so every interested party can get timely updates and also will be able to participate for free tier when the final version ships. Circle CI also configured for better testing together with Jest and Cypress.
 
 - [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0
 - [Rxjs](https://rxjs.dev/) version 7.8.1
