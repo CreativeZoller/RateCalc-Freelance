@@ -283,7 +283,14 @@ export class Sum2Component implements OnInit {
 
     exportToExcel(): void {
         if (this.expenseSummary && this.calculatedRates) {
-            this.exportService.exportToExcel(this.expenseSummary, this.calculatedRates);
+            const timeMetrics = {
+                workingDays: this.getTimeMetric('workingDays'),
+                daysOff: this.getTimeMetric('daysOff'),
+                hoursPerDay: this.getTimeMetric('hoursPerDay'),
+            };
+
+            const exportData = { ...this.calculatedRates, timeMetrics } as CalculationResults & { timeMetrics: typeof timeMetrics };
+            this.exportService.exportToExcel(this.expenseSummary, exportData);
         }
     }
 

@@ -92,7 +92,7 @@ export class ExportService {
         doc.save('expense-summary.pdf');
     }
 
-    async exportToExcel(expenseSummary: ExpenseSummary, calculatedRates: CalculationResults): Promise<void> {
+    exportToExcel(expenseSummary: ExpenseSummary, calculationResults: CalculationResults & { timeMetrics?: TimeMetrics }): void {
         const workbook = XLSX.utils.book_new();
 
         // Create a worksheet for each category
@@ -132,33 +132,27 @@ export class ExportService {
             ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 4 } }];
         });
 
-        // Create Working Time Summary worksheet
-        const timeData = [
-            ['Working Time Summary'],
-            [],
-            ['Metric', 'Value'],
-            ['Working Days', expenseSummary.timeMetrics.workingDays],
-            ['Days Off', expenseSummary.timeMetrics.daysOff],
-            ['Hours per Day', expenseSummary.timeMetrics.hoursPerDay],
-        ];
-        const timeWs = XLSX.utils.aoa_to_sheet(timeData);
-        XLSX.utils.book_append_sheet(workbook, timeWs, 'Working Time');
+        // Add Working Time Summary sheet
+        if (calculationResults.timeMetrics) {
+            const timeData = [
+                ['Working Time Summary'],
+                ['Working Days per Year', calculationResults.timeMetrics.workingDays],
+                ['Total Days Off', calculationResults.timeMetrics.daysOff],
+                ['Working Hours per Day', calculationResults.timeMetrics.hoursPerDay],
+            ];
 
-        // Set column widths for time worksheet
-        timeWs['!cols'] = [
-            { wch: 20 }, // Metric
-            { wch: 15 }, // Value
-        ];
-        timeWs['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 1 } }];
+            const timeSheet = XLSX.utils.aoa_to_sheet(timeData);
+            XLSX.utils.book_append_sheet(workbook, timeSheet, 'Working Time');
+        }
 
         // Create Minimum Rates worksheet
         const ratesData = [
             ['Minimum Rates'],
             [],
             ['Rate Type', 'Amount'],
-            ['Hourly Rate', { t: 'n', v: calculatedRates.minHourlyRate, z: '€#,##0.00' }],
-            ['Daily Rate', { t: 'n', v: calculatedRates.minDailyRate, z: '€#,##0.00' }],
-            ['Monthly Rate', { t: 'n', v: calculatedRates.minMonthlyRate, z: '€#,##0.00' }],
+            ['Hourly Rate', { t: 'n', v: calculationResults.minHourlyRate, z: '€#,##0.00' }],
+            ['Daily Rate', { t: 'n', v: calculationResults.minDailyRate, z: '€#,##0.00' }],
+            ['Monthly Rate', { t: 'n', v: calculationResults.minMonthlyRate, z: '€#,##0.00' }],
             [],
             ['Total Annual Expenses', { t: 'n', v: expenseSummary.totalExpenses, z: '€#,##0.00' }],
         ];
@@ -172,6 +166,6 @@ export class ExportService {
         ];
         ratesWs['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 1 } }];
 
-        XLSX.writeFile(workbook, 'expense-summary.xlsx');
+        XLSX.writeFile(workbook, 'rate-calculation-summary.xlsx');
     }
 }
