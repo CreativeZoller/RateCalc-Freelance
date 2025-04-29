@@ -16,5 +16,5 @@ import { ToastComponent } from '@components/toast/toast.component';
 export class App {}
 
 bootstrapApplication(App, {
-    providers: [provideRouter(routes, withDebugTracing()), provideHttpClient()],
+    providers: [provideRouter(routes), provideHttpClient()],
 });

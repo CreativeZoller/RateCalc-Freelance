@@ -3,13 +3,13 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import * as Papa from 'papaparse';
-import { ExpenseSummary, CalculationResults } from 'app/types';
+import { ExpenseSummary, CalculationResults, TimeMetrics } from 'app/types';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ExportService {
-    async exportToPDF(expenseSummary: ExpenseSummary, calculatedRates: CalculationResults): Promise<void> {
+    exportToPDF(expenseSummary: ExpenseSummary, calculationResults: CalculationResults & { timeMetrics?: TimeMetrics }): void {
         const doc = new jsPDF();
         let yPos = 20;
 
@@ -54,15 +54,17 @@ export class ExportService {
         doc.text('Working Time Summary', 20, yPos);
         yPos += 10;
 
-        autoTable(doc, {
-            head: [['Metric', 'Value']],
-            body: [
-                ['Working Days', expenseSummary.timeMetrics.workingDays],
-                ['Days Off', expenseSummary.timeMetrics.daysOff],
-                ['Hours per Day', expenseSummary.timeMetrics.hoursPerDay],
-            ],
-            startY: yPos,
-        });
+        if (calculationResults.timeMetrics) {
+            autoTable(doc, {
+                head: [['Type', 'Amount']],
+                body: [
+                    ['Working Days per Year', `${calculationResults.timeMetrics.workingDays}`],
+                    ['Total Days Off', `${calculationResults.timeMetrics.daysOff}`],
+                    ['Working Hours per Day', `${calculationResults.timeMetrics.hoursPerDay}`],
+                ],
+                startY: yPos,
+            });
+        }
 
         yPos = (doc as any).lastAutoTable.finalY + 15;
 
@@ -74,9 +76,9 @@ export class ExportService {
         autoTable(doc, {
             head: [['Rate Type', 'Amount']],
             body: [
-                ['Hourly Rate', `€${calculatedRates.minHourlyRate.toFixed(2)}`],
-                ['Daily Rate', `€${calculatedRates.minDailyRate.toFixed(2)}`],
-                ['Monthly Rate', `€${calculatedRates.minMonthlyRate.toFixed(2)}`],
+                ['Hourly Rate', `€${calculationResults.minHourlyRate.toFixed(2)}`],
+                ['Daily Rate', `€${calculationResults.minDailyRate.toFixed(2)}`],
+                ['Monthly Rate', `€${calculationResults.minMonthlyRate.toFixed(2)}`],
             ],
             startY: yPos,
         });
