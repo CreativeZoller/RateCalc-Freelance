@@ -6,6 +6,7 @@ import { Injectable, signal } from '@angular/core';
 interface FormData {
     formId: string;
     controls: Record<string, unknown>;
+    total?: number; // Add total for forms that need it
 }
 
 /**
@@ -32,14 +33,36 @@ export class FormSignalService {
     createOrUpdateFormData(formId: string, controls: Record<string, unknown>): void {
         this.formSignal.update((forms) => {
             const existingIndex = forms.findIndex((form) => form.formId === formId);
+
+            // Calculate total for workOff form
+            let total = 0;
+            if (formId === 'workOff') {
+                total = Object.values(controls).reduce((sum: number, control: any) => {
+                    const value = parseFloat(control.value) || 0;
+                    return sum + value;
+                }, 0);
+            }
+
             if (existingIndex !== -1) {
                 // Update existing form
                 const updatedForms = structuredClone(forms);
-                updatedForms[existingIndex].controls = controls;
+                updatedForms[existingIndex] = {
+                    formId,
+                    controls,
+                    ...(formId === 'workOff' ? { total } : {}),
+                };
                 return updatedForms;
             }
+
             // Create new form entry
-            return [...forms, { formId, controls }];
+            return [
+                ...forms,
+                {
+                    formId,
+                    controls,
+                    ...(formId === 'workOff' ? { total } : {}),
+                },
+            ];
         });
     }
 
@@ -80,5 +103,15 @@ export class FormSignalService {
      */
     getAllFormData(): FormData[] {
         return this.formSignal();
+    }
+
+    /**
+     * Gets the total for a specific form
+     * @param {string} formId - Form identifier
+     * @returns {number} The calculated total or 0 if not found
+     */
+    getFormTotal(formId: string): number {
+        const form = this.getFormData(formId);
+        return form?.total || 0;
     }
 }

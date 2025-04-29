@@ -83,6 +83,7 @@ export class Sum2Component implements OnInit {
         this.calculateFormTotals();
         this.calculateAndStoreRates();
         this.expenseSummary = this.calculationService.calculateDetailedExpenseSummary();
+        this.debugFormData();
     }
 
     private initializePageSettings(): void {
@@ -112,28 +113,54 @@ export class Sum2Component implements OnInit {
     }
 
     getTimeMetric(metric: keyof TimeMetrics): number {
-        if (!this.expenseSummary || !this.expenseSummary.timeMetrics) {
-            console.warn('Expense summary or time metrics are not available');
+        const workOffData = this.formSignalService.getFormData('workOff');
+        const workOnData = this.formSignalService.getFormData('workOn');
+
+        console.log('Getting time metric:', metric);
+        console.log('Work Off Data:', workOffData?.controls);
+        console.log('Work On Data:', workOnData?.controls);
+
+        if (!workOffData?.controls || !workOnData?.controls) {
+            console.warn('Missing work data for time metrics');
             return 0;
         }
-        const value = this.expenseSummary.timeMetrics[metric];
-        if (value === undefined) {
-            console.warn(`Time metric '${metric}' is not available`);
-            return 0;
-        }
-        return value;
+
+        const holidays = Number((workOffData.controls['holidays'] as { value: number })?.value) || 0;
+        const sickleaves = Number((workOffData.controls['sickleaves'] as { value: number })?.value) || 0;
+        const vacations = Number((workOffData.controls['vacations'] as { value: number })?.value) || 0;
+        const totalDaysOff = holidays + sickleaves + vacations;
+        const workhours = Number((workOnData.controls['workhours'] as { value: number })?.value) || 0;
+        const workingDays = 365 - totalDaysOff;
+
+        const metrics: TimeMetrics = {
+            workingDays,
+            daysOff: totalDaysOff,
+            hoursPerDay: workhours,
+        };
+
+        console.log('Calculated metrics:', metrics);
+        return metrics[metric];
     }
 
     private calculateFormTotals(): void {
+        console.group('Calculate Form Totals');
         const formIds = ['living', 'travel', 'business1', 'business2', 'business3'];
 
         const totals = formIds.reduce(
             (acc, formId) => {
                 const formData = this.formSignalService.getFormData(formId);
-                if (!formData) return acc;
+                console.log(`Processing ${formId} form:`, formData);
+
+                if (!formData) {
+                    console.warn(`No data found for ${formId} form`);
+                    return acc;
+                }
 
                 const calculatedTotals = this.calculationService.calculateTotals(formId);
+                console.log(`${formId} calculated totals:`, calculatedTotals);
+
                 const yearlyTotal = this.calculationService.convertToYearlyTotal(calculatedTotals);
+                console.log(`${formId} yearly total:`, yearlyTotal);
 
                 acc.daily += calculatedTotals.dailyTotal;
                 acc.monthly += calculatedTotals.monthlyTotal;
@@ -144,6 +171,9 @@ export class Sum2Component implements OnInit {
             },
             { daily: 0, monthly: 0, yearly: 0, yearlyTotals: {} as Record<string, number> }
         );
+
+        console.log('Final totals:', totals);
+        console.groupEnd();
 
         Object.entries(totals.yearlyTotals).forEach(([formId, total]) => {
             (this as any)[`${formId}Total`] = total;
@@ -156,10 +186,17 @@ export class Sum2Component implements OnInit {
     }
 
     calculateRates(): CalculationResults | null {
+        console.group('Calculate Rates');
+
         const workOffData = this.formSignalService.getFormData('workOff') as ExpenseFormData | undefined;
         const workOnData = this.formSignalService.getFormData('workOn') as ExpenseFormData | undefined;
 
+        console.log('Work Off Data:', workOffData);
+        console.log('Work On Data:', workOnData);
+
         if (!workOffData?.controls || !workOnData?.controls) {
+            console.warn('Missing required form data');
+            console.groupEnd();
             return null;
         }
 
@@ -176,6 +213,7 @@ export class Sum2Component implements OnInit {
 
         if (workdays <= 0 || workhours <= 0) {
             console.warn('Invalid workdays or workhours value, cannot proceed.');
+            console.groupEnd();
             return null;
         }
 
@@ -189,7 +227,7 @@ export class Sum2Component implements OnInit {
         const avgMonthlyRate = expensesTotal ? minDailyRate * avgWorkDays : 0;
         const minMonthlyRate = expensesTotal ? Math.round(avgMonthlyRate * 100) / 100 : 0;
 
-        return {
+        const result = {
             totalWorkingTime,
             totalDaysOff,
             minHourlyRate,
@@ -197,6 +235,10 @@ export class Sum2Component implements OnInit {
             minMonthlyRate,
             workhours,
         };
+
+        console.log('Calculation Result:', result);
+        console.groupEnd();
+        return result;
     }
 
     private updateProgress(): void {
@@ -229,13 +271,60 @@ export class Sum2Component implements OnInit {
 
     exportToPDF(): void {
         if (this.expenseSummary && this.calculatedRates) {
-            this.exportService.exportToPDF(this.expenseSummary, this.calculatedRates);
+            const timeMetrics = {
+                workingDays: this.getTimeMetric('workingDays'),
+                daysOff: this.getTimeMetric('daysOff'),
+                hoursPerDay: this.getTimeMetric('hoursPerDay'),
+            };
+
+            this.exportService.exportToPDF(this.expenseSummary, { ...this.calculatedRates, timeMetrics });
         }
     }
 
     exportToExcel(): void {
         if (this.expenseSummary && this.calculatedRates) {
-            this.exportService.exportToExcel(this.expenseSummary, this.calculatedRates);
+            const timeMetrics = {
+                workingDays: this.getTimeMetric('workingDays'),
+                daysOff: this.getTimeMetric('daysOff'),
+                hoursPerDay: this.getTimeMetric('hoursPerDay'),
+            };
+
+            const exportData = { ...this.calculatedRates, timeMetrics } as CalculationResults & { timeMetrics: typeof timeMetrics };
+            this.exportService.exportToExcel(this.expenseSummary, exportData);
         }
+    }
+
+    private debugFormData(): void {
+        console.group('Form Data Debug');
+
+        const expenseForms = ['living', 'travel', 'business1', 'business2', 'business3'];
+        console.group('Expense Forms');
+        expenseForms.forEach((formId) => {
+            const formData = this.formSignalService.getFormData(formId);
+            console.log(`${formId} form data:`, formData);
+        });
+        console.groupEnd();
+
+        console.group('Work Off Data');
+        const workOffData = this.formSignalService.getFormData('workOff');
+        console.log('Holidays form data:', workOffData);
+        console.groupEnd();
+
+        console.group('Work On Data');
+        const workOnData = this.formSignalService.getFormData('workOn');
+        console.log('Workdays form data:', workOnData);
+        console.groupEnd();
+
+        console.group('Calculations');
+        console.log('Living Total:', this.livingTotal);
+        console.log('Travel Total:', this.travelTotal);
+        console.log('Business 1 Total:', this.business1Total);
+        console.log('Business 2 Total:', this.business2Total);
+        console.log('Business 3 Total:', this.business3Total);
+        console.log('Calculated Rates:', this.calculatedRates);
+        console.log('Expense Summary:', this.expenseSummary);
+        console.groupEnd();
+
+        console.groupEnd();
     }
 }

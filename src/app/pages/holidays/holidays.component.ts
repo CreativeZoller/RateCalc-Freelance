@@ -78,24 +78,10 @@ export class WorkOffComponent implements OnInit, OnDestroy {
                     const savedGroup = savedData.controls[key] as any;
                     if (savedGroup) {
                         const value = savedGroup.value;
-                        const rate = savedGroup.rate;
-
                         if (value && parseFloat(value) !== 0) {
-                            group.patchValue(
-                                {
-                                    value: value,
-                                    rate: rate,
-                                },
-                                { emitEvent: false }
-                            );
+                            group.patchValue({ value }, { emitEvent: false });
                         } else {
-                            group.patchValue(
-                                {
-                                    value: '',
-                                    rate: '',
-                                },
-                                { emitEvent: false }
-                            );
+                            group.patchValue({ value: '' }, { emitEvent: false });
                         }
                     }
                 }
@@ -105,7 +91,16 @@ export class WorkOffComponent implements OnInit, OnDestroy {
 
     private setupFormSubscription(): void {
         this.formSubscription = this.workOffForm.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((values) => {
-            const cleanedValues = this.formCleanupService.cleanExpenseFormValues(values as ExpenseFormGroup);
+            const cleanedValues = Object.keys(values).reduce(
+                (acc, key) => {
+                    acc[key] = {
+                        value: (values[key as keyof typeof values]?.value as string) || '',
+                    };
+                    return acc;
+                },
+                {} as Record<string, { value: string }>
+            );
+
             this.formSignalService.createOrUpdateFormData('workOff', cleanedValues);
             this.calculationService.calculateTotals('workOff');
         });
